@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "compose.yaml.budgansvr",
+      "type": "coreclr",
+      "request": "attach",
+      "preLaunchTask": "compose-up",
+      "processId": "${command:pickProcess}",
+      "pipeTransport": {
+        "pipeProgram": "docker",
+        "pipeArgs": ["exec", "-i", "budgansvr-budgansvr-1"],
+        "debuggerPath": "/vsdbg/vsdbg",
+        "pipeCwd": "${workspaceFolder}"
+      },
+      "sourceFileMap": {
+        "/src/BudganSvr": "${workspaceFolder}/BudganSvr"
+      }
+    },
+    {
+      "name": "Docker: Attach to BudganSvr",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:pickProcess}",
+      "pipeTransport": {
+        "pipeProgram": "docker",
+        "pipeArgs": ["exec", "-i", "budgansvr-budgansvr-1"],
+        "debuggerPath": "/vsdbg/vsdbg",
+        "pipeCwd": "${workspaceFolder}"
+      },
+      "sourceFileMap": {
+        "/src/BudganSvr": "${workspaceFolder}/BudganSvr"
+      }
+    }
+  ]
+}

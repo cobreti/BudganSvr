@@ -1,0 +1,19 @@
+services:
+  budgansvr:
+    image: budgansvr
+    build:
+      context: .
+      dockerfile: BudganSvr/Dockerfile
+      target: debug
+    ports:
+      - "5222:5222"
+    environment:
+      ASPNETCORE_URLS: "http://+:5222"
+      ASPNETCORE_ENVIRONMENT: "Development"
+      WAIT_FOR_DEBUGGER: "true"
+    volumes:
+      - ./BudganSvr:/src/BudganSvr:cached
+      - rider-debugger:/jetbrains-debugger
+
+volumes:
+  rider-debugger:

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BudganSvr")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+31abec185fb6f948fabe6d2524d5b8c8436094ce")]
 [assembly: System.Reflection.AssemblyProductAttribute("BudganSvr")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BudganSvr")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
