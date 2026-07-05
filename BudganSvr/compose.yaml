@@ -1,6 +1,7 @@
 services:
   budgansvr:
-    image: budgansvr
+    profiles: [debug]
+    image: budgansvr:debug
     build:
       context: .
       dockerfile: BudganSvr/Dockerfile
@@ -14,6 +15,19 @@ services:
     volumes:
       - ./BudganSvr:/src/BudganSvr:cached
       - rider-debugger:/jetbrains-debugger
+
+  budgansvr-release:
+    profiles: [release]
+    image: budgansvr:release
+    build:
+      context: .
+      dockerfile: BudganSvr/Dockerfile
+      target: final
+    ports:
+      - "5222:5222"
+    environment:
+      ASPNETCORE_URLS: "http://+:5222"
+      ASPNETCORE_ENVIRONMENT: "Production"
 
 volumes:
   rider-debugger:
