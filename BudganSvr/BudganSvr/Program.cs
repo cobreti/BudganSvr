@@ -1,3 +1,9 @@
+using System;
+using System.Threading;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 if (Environment.GetEnvironmentVariable("WAIT_FOR_DEBUGGER") == "true")
 {
     Console.WriteLine($"Waiting for debugger — PID {Environment.ProcessId}. Attach and then set WAIT_FOR_DEBUGGER=false or send SIGUSR1.");
@@ -6,7 +12,11 @@ if (Environment.GetEnvironmentVariable("WAIT_FOR_DEBUGGER") == "true")
     Console.WriteLine("Debugger attached.");
 }
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args,
+    WebRootPath = "wwwroot",
+});
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -26,7 +36,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.MapControllers();
 
 app.Run();
