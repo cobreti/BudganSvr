@@ -15,6 +15,9 @@ services:
     volumes:
       - ./BudganSvr:/src/BudganSvr:cached
       - rider-debugger:/jetbrains-debugger
+      - wwwroot:/app/wwwroot
+    depends_on:
+      - shell
 
   budgansvr-release:
     profiles: [release]
@@ -29,5 +32,14 @@ services:
       ASPNETCORE_URLS: "http://+:5222"
       ASPNETCORE_ENVIRONMENT: "Production"
 
+  shell:
+    image: alpine:latest
+    command: sleep infinity
+    stdin_open: true
+    tty: true
+    volumes:
+      - wwwroot:/BudganSvr/wwwroot
+
 volumes:
   rider-debugger:
+  wwwroot:

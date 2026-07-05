@@ -15,7 +15,7 @@ services:
     - "--mode=server"
     - "--frontend-port=57000"
     - "--backend-port=57200"
-    - "--roslyn-worker-port=57414"
+    - "--roslyn-worker-port=57419"
     - "--timeout=60"
     environment:
       ASPNETCORE_STATICWEBASSETS: "/app/bin/Debug/net10.0/BudganSvr.staticwebassets.runtime.CT.json"
@@ -24,14 +24,14 @@ services:
       RESHARPER_LOG_CONF: "/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
     image: "budgansvr:dev"
     ports:
-    - "127.0.0.1:57014:57000"
-    - "127.0.0.1:57214:57200"
-    - "127.0.0.1:57414:57414"
+    - "127.0.0.1:57019:57000"
+    - "127.0.0.1:57219:57200"
+    - "127.0.0.1:57419:57419"
     volumes:
     - "/Users/dannyt/dev/BudganSvr/BudganSvr/BudganSvr:/app:rw"
     - "/Users/dannyt/dev/BudganSvr/BudganSvr:/src:rw"
     - "/Users/dannyt/.nuget/packages:/home/app/.nuget/packages"
     - "/Users/dannyt/.local/share/JetBrains/RiderRemoteDebugger/2026.1.4/LinuxArm64:/opt/JetBrains/RiderDebuggerTools"
     - "/Users/dannyt/Applications/Rider.app/Contents/bin/backend-log.xml:/etc/opt/JetBrains/RiderDebuggerTools/backend-log.xml"
-    - "/Users/dannyt/Library/Logs/JetBrains/Rider2026.1/DebuggerWorker/JetBrains.Debugger.Worker.2026_7_05_14_43_29:/var/opt/JetBrains/RiderDebuggerTools:rw"
+    - "/Users/dannyt/Library/Logs/JetBrains/Rider2026.1/DebuggerWorker/JetBrains.Debugger.Worker.2026_7_05_15_03_46:/var/opt/JetBrains/RiderDebuggerTools:rw"
     working_dir: "/app"
