@@ -1,4 +1,5 @@
 using BudganInfra.DBContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudganInfra.Repositories.ColumnsMapping.Save;
 
@@ -17,28 +18,59 @@ internal class SaveColumnsMappingRepoOp : ISaveColumnsMappingRepoOp
 
     public async Task Execute()
     {
-        var Id = this._daoSaveColumnsMapping.Id != null ? Guid.Parse(this._daoSaveColumnsMapping.Id) : Guid.NewGuid();
-        
-        DBContext.Tables.ColumnsMapping columnsMapping = new()
+        if (this._daoSaveColumnsMapping.Id == null)
         {
-            Id = Id,
+            await this.Add();
+        }
+        else
+        {
+            await this.Update();
+        }
+    }
+
+    private async Task Add()
+    {
+        var id = Guid.NewGuid();
+        var columnsMapping = new DBContext.Tables.ColumnsMapping()
+        {
+            Id = id,
             Name = this._daoSaveColumnsMapping.Name,
-            
             CardNumberColumnIndex = this._daoSaveColumnsMapping.CardNumberColumnIndex,
             CardNumberColumnText = this._daoSaveColumnsMapping.CardNumberColumnText,
-            
             AmountColumnIndex = this._daoSaveColumnsMapping.AmountColumnIndex,
             AmountColumnText = this._daoSaveColumnsMapping.AmountColumnText,
-            
             DateInscriptionColumnIndex = this._daoSaveColumnsMapping.DateInscriptionColumnIndex,
             DateInscriptionColumnText = this._daoSaveColumnsMapping.DateInscriptionColumnText,
-            
             DescriptionColumnIndex = this._daoSaveColumnsMapping.DescriptionColumnIndex,
             DescriptionColumnText = this._daoSaveColumnsMapping.DescriptionColumnText,
         };
         
         await this._dataContext.ColumnsMappings.AddAsync(columnsMapping);
         await this._dataContext.SaveChangesAsync();
-        
+    }
+
+    private async Task Update()
+    {
+        var id = Guid.Parse(this._daoSaveColumnsMapping.Id);
+        var columnsMapping = await this._dataContext.ColumnsMappings
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (columnsMapping == null)
+        {
+            throw new Exception("indicated resource not found");
+        }
+
+        columnsMapping.Name = this._daoSaveColumnsMapping.Name;
+        columnsMapping.CardNumberColumnIndex = this._daoSaveColumnsMapping.CardNumberColumnIndex;
+        columnsMapping.CardNumberColumnText = this._daoSaveColumnsMapping.CardNumberColumnText;
+        columnsMapping.AmountColumnIndex = this._daoSaveColumnsMapping.AmountColumnIndex;
+        columnsMapping.AmountColumnText = this._daoSaveColumnsMapping.AmountColumnText;
+        columnsMapping.DateInscriptionColumnIndex = this._daoSaveColumnsMapping.DateInscriptionColumnIndex;
+        columnsMapping.DateInscriptionColumnText = this._daoSaveColumnsMapping.DateInscriptionColumnText;
+        columnsMapping.DescriptionColumnIndex = this._daoSaveColumnsMapping.DescriptionColumnIndex;
+        columnsMapping.DescriptionColumnText = this._daoSaveColumnsMapping.DescriptionColumnText;
+
+        this._dataContext.ColumnsMappings.Update(columnsMapping);
+        await this._dataContext.SaveChangesAsync();
     }
 }

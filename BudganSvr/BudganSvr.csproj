@@ -27,6 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BudganInfra\BudganInfra.csproj" />
+      <ProjectReference Include="..\BudganServices\BudganServices.csproj" />
     </ItemGroup>
 
 </Project>

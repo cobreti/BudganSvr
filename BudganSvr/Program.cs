@@ -1,11 +1,5 @@
-using System;
-using System.Threading;
 using BudganInfra;
-using BudganInfra.DBContext;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using BudganServices;
 
 if (Environment.GetEnvironmentVariable("WAIT_FOR_DEBUGGER") == "true")
 {
@@ -33,6 +27,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddBudganServices();
 
 var app = builder.Build();
 
