@@ -9,4 +9,6 @@ public class UserAccount
     
     [MaxLength(100)]
     public required string Name { get; set; }
+
+    public required bool IsDefault { get; set; }
 }
