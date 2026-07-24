@@ -1,4 +1,6 @@
 using BudganInfra.DBContext;
+using BudganInfra.Repositories.ColumnsMapping;
+using BudganInfra.Repositories.UserAccount;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,9 @@ public static class ServiceCollectionExtensions
                 configuration.GetConnectionString("DefaultConnection"),
                 sqlServerOptions => sqlServerOptions.MigrationsAssembly(typeof(ServiceCollectionExtensions).Assembly.FullName)));
 
+        services.AddScoped<IUserAccountRepository, UserAccountRepository>();
+        services.AddScoped<IColumnsMappingRepository, ColumnsMappingRepository>();
+        
         return services;
     }
 }

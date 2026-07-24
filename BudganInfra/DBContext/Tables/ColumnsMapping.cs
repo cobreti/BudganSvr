@@ -13,20 +13,22 @@ public class ColumnsMapping
     public required int CardNumberColumnIndex { get; set; }
     
     [MaxLength(100)]
-    public required string CardNumberColumnName { get; set; }
+    public required string? CardNumberColumnText { get; set; }
 
-    public required int InscriptionColumnIndex { get; set; }
+    public required int DateInscriptionColumnIndex { get; set; }
     
     [MaxLength(100)]
-    public required string InscriptionColumnName { get; set; }
+    public required string? DateInscriptionColumnText { get; set; }
 
     public required int AmountColumnIndex { get; set; }
     
     [MaxLength(100)]
-    public required string AmountColumnName { get; set; }
+    public required string? AmountColumnText { get; set; }
 
     public required int DescriptionColumnIndex { get; set; }
     
     [MaxLength(100)]
-    public required string DescriptionColumnName { get; set; }
+    public required string? DescriptionColumnText { get; set; }
+
+    public DateTime Timestamp { get; set; }
 }

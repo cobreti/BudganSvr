@@ -18,13 +18,14 @@ namespace BudganInfra.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CardNumberColumnIndex = table.Column<int>(type: "int", nullable: false),
-                    CardNumberColumnName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    InscriptionColumnIndex = table.Column<int>(type: "int", nullable: false),
-                    InscriptionColumnName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CardNumberColumnText = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    DateInscriptionColumnIndex = table.Column<int>(type: "int", nullable: false),
+                    DateInscriptionColumnText = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     AmountColumnIndex = table.Column<int>(type: "int", nullable: false),
-                    AmountColumnName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    AmountColumnText = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     DescriptionColumnIndex = table.Column<int>(type: "int", nullable: false),
-                    DescriptionColumnName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    DescriptionColumnText = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
                 },
                 constraints: table =>
                 {

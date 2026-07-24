@@ -34,32 +34,28 @@ namespace BudganInfra.Migrations
                     b.Property<int>("AmountColumnIndex")
                         .HasColumnType("int");
 
-                    b.Property<string>("AmountColumnName")
-                        .IsRequired()
+                    b.Property<string>("AmountColumnText")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("CardNumberColumnIndex")
                         .HasColumnType("int");
 
-                    b.Property<string>("CardNumberColumnName")
-                        .IsRequired()
+                    b.Property<string>("CardNumberColumnText")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("DateInscriptionColumnIndex")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DateInscriptionColumnText")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("DescriptionColumnIndex")
                         .HasColumnType("int");
 
-                    b.Property<string>("DescriptionColumnName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("InscriptionColumnIndex")
-                        .HasColumnType("int");
-
-                    b.Property<string>("InscriptionColumnName")
-                        .IsRequired()
+                    b.Property<string>("DescriptionColumnText")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -67,6 +63,11 @@ namespace BudganInfra.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.HasKey("Id");
 
