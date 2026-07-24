@@ -1,5 +1,5 @@
 using BudganInfra.DBContext;
-using BudganInfra.Repositories.ColumnsMapping.Models;
+using BudganInfra.Repositories.ColumnsMapping.Save;
 
 namespace BudganInfra.Repositories.ColumnsMapping;
 
@@ -12,29 +12,8 @@ internal class ColumnsMappingRepository : IColumnsMappingRepository
         this.dataContext = dataContext;
     }
     
-    public async Task Save(DaoSaveColumnsMapping daoSaveColumnsMapping)
+    public ISaveColumnsMappingRepoOp GetSaveColumnsMappingRepoOperation(DaoSaveColumnsMapping daoSaveColumnsMapping)
     {
-        var Id = daoSaveColumnsMapping.Id != null ? Guid.Parse(daoSaveColumnsMapping.Id) : Guid.NewGuid();
-        
-        DBContext.Tables.ColumnsMapping columnsMapping = new()
-        {
-            Id = Id,
-            Name = daoSaveColumnsMapping.Name,
-            
-            CardNumberColumnIndex = daoSaveColumnsMapping.CardNumberColumnIndex,
-            CardNumberColumnText = daoSaveColumnsMapping.CardNumberColumnText,
-            
-            AmountColumnIndex = daoSaveColumnsMapping.AmountColumnIndex,
-            AmountColumnText = daoSaveColumnsMapping.AmountColumnText,
-            
-            DateInscriptionColumnIndex = daoSaveColumnsMapping.DateInscriptionColumnIndex,
-            DateInscriptionColumnText = daoSaveColumnsMapping.DateInscriptionColumnText,
-            
-            DescriptionColumnIndex = daoSaveColumnsMapping.DescriptionColumnIndex,
-            DescriptionColumnText = daoSaveColumnsMapping.DescriptionColumnText,
-        };
-        
-        await dataContext.ColumnsMappings.AddAsync(columnsMapping);
-        await dataContext.SaveChangesAsync();
+        return new SaveColumnsMappingRepoOp(this.dataContext, daoSaveColumnsMapping);
     }
 }

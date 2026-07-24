@@ -1,4 +1,4 @@
-namespace BudganInfra.Repositories.ColumnsMapping.Models;
+namespace BudganInfra.Repositories.ColumnsMapping.Save;
 
 public class DaoSaveColumnsMapping
 {
