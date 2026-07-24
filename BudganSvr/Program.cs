@@ -21,8 +21,6 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     WebRootPath = "wwwroot",
 });
 
-Console.WriteLine($"Environment: {builder.Environment.IsDevelopment()}");
-
 builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
@@ -40,9 +38,6 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-    var connString = dbContext.Database.GetConnectionString();
-
     scope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
 }
 
