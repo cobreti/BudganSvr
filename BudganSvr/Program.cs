@@ -36,14 +36,13 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    scope.ServiceProvider.GetRequiredService<DataContext>().Database.Migrate();
-}
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+        // apply automatic migrations only in debug
+        //  use Migration bundles for production
+    app.Services.ApplyMigrations();
+    
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
