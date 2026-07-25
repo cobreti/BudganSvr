@@ -1,6 +1,6 @@
 namespace BudganServices.Services.ColumnsMapping.AddOrUpdate;
 
-public interface IAddOrUpdateColumnsMappingUseCase
+public interface IAddOrUpdateColumnsMappingUseCase : IServiceUseCase
 {
-    Task Execute();
+    Guid Result { get; }
 }

@@ -1,4 +1,4 @@
-namespace BudganSvr.Api.Controllers.ColumnsMapping;
+namespace BudganSvr.Api.Controllers.ColumnsMapping.Models;
 
 public class AddOrUpdateColumnsMapping
 {

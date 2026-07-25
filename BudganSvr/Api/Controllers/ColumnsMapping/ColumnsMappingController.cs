@@ -1,5 +1,7 @@
 using BudganServices.Services.ColumnsMapping;
 using BudganServices.Services.ColumnsMapping.AddOrUpdate;
+using BudganSvr.Api.Controllers.ColumnsMapping.Models;
+using BudganSvr.Api.Types;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BudganSvr.Api.Controllers.ColumnsMapping;
@@ -35,7 +37,9 @@ public class ColumnsMappingController : ControllerBase
         var addOrUpdateUseCase = this._columnsMappingService.GetAddOrUpdateUseCase(boModel);
         
         await addOrUpdateUseCase.Execute();
-        
-        return Ok();
+
+        var result = new ApiSuccessResult<Guid>(addOrUpdateUseCase.Result);
+
+        return Ok(result);
     }
 }

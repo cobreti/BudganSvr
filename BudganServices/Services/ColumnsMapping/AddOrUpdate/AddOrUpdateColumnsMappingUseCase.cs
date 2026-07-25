@@ -7,6 +7,9 @@ public class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseCas
 {
     private readonly IColumnsMappingRepository _columnsMappingRepository;
     private readonly BOAddOrUpdateColumnsMapping _boAddOrUpdateModel;
+    private Guid _result = Guid.Empty;
+    
+    public Guid Result => this._result;
 
     public AddOrUpdateColumnsMappingUseCase(IColumnsMappingRepository columnsMappingRepository, BOAddOrUpdateColumnsMapping model)
     {
@@ -33,5 +36,7 @@ public class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseCas
         var repoOp = this._columnsMappingRepository.GetSaveColumnsMappingRepoOperation(daoSave);
 
         await repoOp.Execute();
+        
+        this._result = repoOp.SaveResultValue;
     }
 }

@@ -7,8 +7,11 @@ internal class SaveColumnsMappingRepoOp : ISaveColumnsMappingRepoOp
 {
     private readonly DataContext _dataContext;
     private readonly DaoSaveColumnsMapping _daoSaveColumnsMapping;
+    private Guid _saveResultValue = Guid.Empty;
 
     public DaoSaveColumnsMapping DaoSaveColumnsMapping => this._daoSaveColumnsMapping;
+    
+    public Guid SaveResultValue => this._saveResultValue;
 
     public SaveColumnsMappingRepoOp(DataContext dataContext, DaoSaveColumnsMapping daoSaveColumnsMapping)
     {
@@ -47,10 +50,14 @@ internal class SaveColumnsMappingRepoOp : ISaveColumnsMappingRepoOp
         
         await this._dataContext.ColumnsMappings.AddAsync(columnsMapping);
         await this._dataContext.SaveChangesAsync();
+        
+        this._saveResultValue = columnsMapping.Id;
     }
 
     private async Task Update()
     {
+        ArgumentNullException.ThrowIfNull(this._daoSaveColumnsMapping.Id);
+        
         var id = Guid.Parse(this._daoSaveColumnsMapping.Id);
         var columnsMapping = await this._dataContext.ColumnsMappings
             .FirstOrDefaultAsync(x => x.Id == id);
@@ -72,5 +79,7 @@ internal class SaveColumnsMappingRepoOp : ISaveColumnsMappingRepoOp
 
         this._dataContext.ColumnsMappings.Update(columnsMapping);
         await this._dataContext.SaveChangesAsync();
+        
+        this._saveResultValue = id;
     }
 }
