@@ -30,7 +30,7 @@ internal class SaveColumnsMappingRepoOp : ISaveColumnsMappingRepoOp
 
     private async Task Add()
     {
-        var id = Guid.NewGuid();
+        var id = Guid.CreateVersion7();
         var columnsMapping = new DBContext.Tables.ColumnsMapping()
         {
             Id = id,
