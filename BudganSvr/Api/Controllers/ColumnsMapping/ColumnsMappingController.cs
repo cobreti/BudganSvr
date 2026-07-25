@@ -16,6 +16,7 @@ public class ColumnsMappingController : ControllerBase
     }
     
     [HttpPost]
+    [Route("AddOrUpdate")]
     public async Task<IActionResult> AddOrUpdate(AddOrUpdateColumnsMapping model)
     {
         var boModel = new BOAddOrUpdateColumnsMapping
