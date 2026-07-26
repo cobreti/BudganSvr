@@ -1,8 +1,9 @@
+using BudganInfra.Repositories.Models;
+
 namespace BudganInfra.Repositories.ColumnsMapping.Save;
 
-public class DaoSaveColumnsMapping
+public class DaoSaveColumnsMapping : DaoBaseUpdateModel
 {
-    public string? Id { get; set; }
     public required string Name { get; set; }
     
     public required int CardNumberColumnIndex { get; set; }

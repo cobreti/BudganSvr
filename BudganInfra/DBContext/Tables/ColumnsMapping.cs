@@ -1,12 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BudganInfra.DBContext.Tables;
 
-public class ColumnsMapping
+[Table("ColumnsMapping")]
+public class ColumnsMapping : BaseEntity
 {
-    [Key]
-    public required Guid Id { get; set; }
-    
     [MaxLength(100)]
     public required string Name { get; set; }
 
@@ -29,6 +28,4 @@ public class ColumnsMapping
     
     [MaxLength(100)]
     public required string? DescriptionColumnText { get; set; }
-
-    public DateTime Timestamp { get; set; }
 }

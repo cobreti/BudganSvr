@@ -68,7 +68,7 @@ namespace BudganInfra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EFColumnsMapping", (string)null);
+                    b.ToTable("ColumnsMapping", (string)null);
                 });
 
             modelBuilder.Entity("BudganInfra.DBContext.Tables.UserAccount", b =>

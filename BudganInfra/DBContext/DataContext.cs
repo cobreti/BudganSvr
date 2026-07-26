@@ -12,7 +12,6 @@ public class DataContext(DbContextOptions<DataContext> options) : Microsoft.Enti
     {
         modelBuilder.Entity<ColumnsMapping>(entity =>
         {
-            entity.ToTable("EFColumnsMapping");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Timestamp)
                 .HasDefaultValueSql("GETUTCDATE()");

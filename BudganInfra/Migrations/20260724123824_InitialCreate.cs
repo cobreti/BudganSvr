@@ -12,7 +12,7 @@ namespace BudganInfra.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "EFColumnsMapping",
+                name: "ColumnsMapping",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -29,7 +29,7 @@ namespace BudganInfra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EFColumnsMapping", x => x.Id);
+                    table.PrimaryKey("PK_ColumnsMapping", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,7 +55,7 @@ namespace BudganInfra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EFColumnsMapping");
+                name: "ColumnsMapping");
 
             migrationBuilder.DropTable(
                 name: "UserAccounts");
