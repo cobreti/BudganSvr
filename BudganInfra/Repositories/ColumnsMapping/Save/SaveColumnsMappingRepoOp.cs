@@ -1,3 +1,5 @@
+using BudganGlobal.Errors;
+using BudganGlobal.Errors.Exceptions;
 using BudganInfra.DBContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,11 +11,25 @@ internal class SaveColumnsMappingRepoOp : BaseRepositoryOperation, ISaveColumnsM
     private readonly DaoSaveColumnsMapping _daoSaveColumnsMapping;
     private Guid _saveResultValue = Guid.Empty;
     private bool _succeeded = true;
+    private ErrorValue? _errorValue = null;
 
     public DaoSaveColumnsMapping DaoSaveColumnsMapping => this._daoSaveColumnsMapping;
     
     public Guid SaveResultValue => this._saveResultValue;
     public bool Succeeded => this._succeeded;
+
+    public ErrorValue ErrorValue
+    {
+        get
+        {
+            if (this._succeeded || this._errorValue == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return this._errorValue;
+        }
+    }
 
     public SaveColumnsMappingRepoOp(DataContext dataContext, DaoSaveColumnsMapping daoSaveColumnsMapping)
     {
@@ -65,34 +81,27 @@ internal class SaveColumnsMappingRepoOp : BaseRepositoryOperation, ISaveColumnsM
 
     private async Task Update()
     {
-        try
-        {
-            ArgumentNullException.ThrowIfNull(this._daoSaveColumnsMapping.Id);
+        ArgumentNullException.ThrowIfNull(this._daoSaveColumnsMapping.Id);
 
-            var id = Guid.Parse(this._daoSaveColumnsMapping.Id);
-            var columnsMapping = await this._dataContext.ColumnsMappings
-                .FirstOrDefaultAsync(x => x.Id == id);
-            
-            ValidateCanPerformUpdate(columnsMapping, this._daoSaveColumnsMapping);
-            
-            columnsMapping.Name = this._daoSaveColumnsMapping.Name;
-            columnsMapping.CardNumberColumnIndex = this._daoSaveColumnsMapping.CardNumberColumnIndex;
-            columnsMapping.CardNumberColumnText = this._daoSaveColumnsMapping.CardNumberColumnText;
-            columnsMapping.AmountColumnIndex = this._daoSaveColumnsMapping.AmountColumnIndex;
-            columnsMapping.AmountColumnText = this._daoSaveColumnsMapping.AmountColumnText;
-            columnsMapping.DateInscriptionColumnIndex = this._daoSaveColumnsMapping.DateInscriptionColumnIndex;
-            columnsMapping.DateInscriptionColumnText = this._daoSaveColumnsMapping.DateInscriptionColumnText;
-            columnsMapping.DescriptionColumnIndex = this._daoSaveColumnsMapping.DescriptionColumnIndex;
-            columnsMapping.DescriptionColumnText = this._daoSaveColumnsMapping.DescriptionColumnText;
+        var id = Guid.Parse(this._daoSaveColumnsMapping.Id);
+        var columnsMapping = await this._dataContext.ColumnsMappings
+            .FirstOrDefaultAsync(x => x.Id == id);
 
-            this._dataContext.ColumnsMappings.Update(columnsMapping);
-            await this._dataContext.SaveChangesAsync();
+        ValidateCanPerformUpdate(columnsMapping, this._daoSaveColumnsMapping);
 
-            this._saveResultValue = id;
-        }
-        catch (Exception ex)
-        {
-            this._succeeded = false;
-        }
+        columnsMapping.Name = this._daoSaveColumnsMapping.Name;
+        columnsMapping.CardNumberColumnIndex = this._daoSaveColumnsMapping.CardNumberColumnIndex;
+        columnsMapping.CardNumberColumnText = this._daoSaveColumnsMapping.CardNumberColumnText;
+        columnsMapping.AmountColumnIndex = this._daoSaveColumnsMapping.AmountColumnIndex;
+        columnsMapping.AmountColumnText = this._daoSaveColumnsMapping.AmountColumnText;
+        columnsMapping.DateInscriptionColumnIndex = this._daoSaveColumnsMapping.DateInscriptionColumnIndex;
+        columnsMapping.DateInscriptionColumnText = this._daoSaveColumnsMapping.DateInscriptionColumnText;
+        columnsMapping.DescriptionColumnIndex = this._daoSaveColumnsMapping.DescriptionColumnIndex;
+        columnsMapping.DescriptionColumnText = this._daoSaveColumnsMapping.DescriptionColumnText;
+
+        this._dataContext.ColumnsMappings.Update(columnsMapping);
+        await this._dataContext.SaveChangesAsync();
+
+        this._saveResultValue = id;
     }
 }
