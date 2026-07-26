@@ -1,4 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
+using BudganGlobal.Errors;
+using BudganGlobal.Errors.Exceptions;
 using BudganInfra.DBContext.Tables;
 using BudganInfra.Repositories.Models;
 
@@ -10,7 +12,7 @@ public abstract class BaseRepositoryOperation
     {
         if (entity == null)
         {
-            throw new Exception("indicated resource not found");
+            throw new BudganException(ErrorValue.ResourceNotFound);
         }
 
         if (updateModel.Timestamp == null)

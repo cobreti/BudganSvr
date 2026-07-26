@@ -14,4 +14,8 @@
       <Folder Include="Repositories\UserAccount\Models\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BudganGlobal\BudganGlobal.csproj" />
+    </ItemGroup>
+
 </Project>
