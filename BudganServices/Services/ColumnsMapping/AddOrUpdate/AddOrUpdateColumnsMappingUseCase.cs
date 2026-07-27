@@ -35,7 +35,7 @@ internal class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseC
 
         var repoOp = this._columnsMappingRepository.SaveColumnsMappingRepoOperation(daoSave);
 
-        await repoOp.Execute();
+        await repoOp.ExecuteAsync();
         
         this._result = repoOp.SaveResultValue;
     }

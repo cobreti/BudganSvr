@@ -65,7 +65,7 @@ public class SaveColumnsMappingRepoOpTests
         var dao = CreateDao();
         var op = new SaveColumnsMappingRepoOp(context, dao);
 
-        await op.Execute();
+        await op.ExecuteAsync();
 
         Assert.NotEqual(Guid.Empty, op.SaveResultValue);
         Assert.True(op.Succeeded);
@@ -79,7 +79,7 @@ public class SaveColumnsMappingRepoOpTests
         var dao = CreateDao();
         var op = new SaveColumnsMappingRepoOp(context, dao);
 
-        await op.Execute();
+        await op.ExecuteAsync();
 
         var persisted = await context.ColumnsMappings.SingleAsync(x => x.Id == op.SaveResultValue);
         Assert.Equal(dao.Name, persisted.Name);
@@ -103,7 +103,7 @@ public class SaveColumnsMappingRepoOpTests
         var dao = CreateDao(id: seeded.Id.ToString(), timestamp: timestamp);
         var op = new SaveColumnsMappingRepoOp(context, dao);
 
-        await op.Execute();
+        await op.ExecuteAsync();
 
         Assert.Equal(seeded.Id, op.SaveResultValue);
         Assert.Single(context.ColumnsMappings);
@@ -123,7 +123,7 @@ public class SaveColumnsMappingRepoOpTests
         var dao = CreateDao(id: Guid.NewGuid().ToString(), timestamp: DateTime.UtcNow);
         var op = new SaveColumnsMappingRepoOp(context, dao);
 
-        var ex = await Assert.ThrowsAsync<BudganException>(() => op.Execute());
+        var ex = await Assert.ThrowsAsync<BudganException>(() => op.ExecuteAsync());
 
         Assert.Equal(ErrorValue.ResourceNotFound, ex.Error);
     }
@@ -137,7 +137,7 @@ public class SaveColumnsMappingRepoOpTests
         var dao = CreateDao(id: seeded.Id.ToString(), timestamp: null);
         var op = new SaveColumnsMappingRepoOp(context, dao);
 
-        var ex = await Assert.ThrowsAsync<Exception>(() => op.Execute());
+        var ex = await Assert.ThrowsAsync<Exception>(() => op.ExecuteAsync());
 
         Assert.Equal("timestamp value required for update operation", ex.Message);
     }
@@ -151,7 +151,7 @@ public class SaveColumnsMappingRepoOpTests
         var dao = CreateDao(id: seeded.Id.ToString(), timestamp: new DateTime(2026, 1, 2, 0, 0, 0, DateTimeKind.Utc));
         var op = new SaveColumnsMappingRepoOp(context, dao);
 
-        var ex = await Assert.ThrowsAsync<Exception>(() => op.Execute());
+        var ex = await Assert.ThrowsAsync<Exception>(() => op.ExecuteAsync());
 
         Assert.Equal("indicated resource has been modified", ex.Message);
     }
@@ -165,7 +165,7 @@ public class SaveColumnsMappingRepoOpTests
         var dao = CreateDao(id: invalidId, timestamp: DateTime.UtcNow);
         var op = new SaveColumnsMappingRepoOp(context, dao);
 
-        await Assert.ThrowsAsync<FormatException>(() => op.Execute());
+        await Assert.ThrowsAsync<FormatException>(() => op.ExecuteAsync());
     }
 
     [Fact]
@@ -177,7 +177,7 @@ public class SaveColumnsMappingRepoOpTests
         var dao = CreateDao();
         var op = new SaveColumnsMappingRepoOp(context, dao);
 
-        await op.Execute();
+        await op.ExecuteAsync();
 
         Assert.Throws<InvalidOperationException>(() => op.ErrorValue);
     }

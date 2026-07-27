@@ -1,4 +1,5 @@
 using BudganInfra.DBContext;
+using BudganInfra.Repositories.ColumnsMapping.Get;
 using BudganInfra.Repositories.ColumnsMapping.GetList;
 using BudganInfra.Repositories.ColumnsMapping.Save;
 using Microsoft.Extensions.Logging;
@@ -24,5 +25,10 @@ internal class ColumnsMappingRepository : IColumnsMappingRepository
     public IListColumnsMappingRepoOp ListColumnsMappingRepoOperation()
     {
         return new ListColumnsMappingRepoOp(this.dataContext);
+    }
+
+    public IGetColumnsMappingRepoOp GetColumnsMappingRepoOperation(Guid id)
+    {
+        return new GetColumnsMappingRepoOp(this.dataContext, id);
     }
 }

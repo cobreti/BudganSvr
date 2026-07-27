@@ -37,7 +37,7 @@ internal class SaveColumnsMappingRepoOp : BaseRepositoryOperation, ISaveColumnsM
         this._daoSaveColumnsMapping = daoSaveColumnsMapping;
     }
 
-    public async Task Execute()
+    public async Task ExecuteAsync()
     {
         if (this._daoSaveColumnsMapping.Id == null)
         {

@@ -19,7 +19,7 @@ internal class ListColumnsMappingUseCase : IListColumnsMappingUseCase
         var repoOp = this._repository
             .ListColumnsMappingRepoOperation();
         
-        await repoOp.Execute();
+        await repoOp.ExecuteAsync();
 
         this._columnsMappings = repoOp.GetListResult
             .Select(x => new ListColumnsMapping

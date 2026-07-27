@@ -58,7 +58,7 @@ public class ColumnsMappingController : ControllerBase
     }
 
     [HttpGet]
-    [Route("ListColumnsMapping")]
+    [Route("List")]
     public async Task<IActionResult> ListColumnsMapping()
     {
         var listColumnsMappingUseCase = this._columnsMappingService.ListColumnsMappingUseCase();

@@ -1,3 +1,4 @@
+using BudganInfra.Repositories.ColumnsMapping.Get;
 using BudganInfra.Repositories.ColumnsMapping.GetList;
 using BudganInfra.Repositories.ColumnsMapping.Save;
 
@@ -7,4 +8,5 @@ public interface IColumnsMappingRepository
 {
     ISaveColumnsMappingRepoOp SaveColumnsMappingRepoOperation(DaoSaveColumnsMapping daoSaveColumnsMapping);
     IListColumnsMappingRepoOp ListColumnsMappingRepoOperation();
+    IGetColumnsMappingRepoOp GetColumnsMappingRepoOperation(Guid id);
 }

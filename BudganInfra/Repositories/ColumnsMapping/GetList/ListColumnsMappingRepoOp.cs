@@ -17,7 +17,7 @@ internal class ListColumnsMappingRepoOp : BaseRepositoryOperation, IListColumnsM
         this._dataContext = dataContext;
     }
 
-    public async Task Execute()
+    public async Task ExecuteAsync()
     {
         this._daoGetListColumnsMappings = await this._dataContext.ColumnsMappings
             .Select(x => new DaoListColumnsMapping
