@@ -33,7 +33,7 @@ public class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseCas
             DescriptionColumnText = this._boAddOrUpdateModel.DescriptionColumnText,
         };
 
-        var repoOp = this._columnsMappingRepository.GetSaveColumnsMappingRepoOperation(daoSave);
+        var repoOp = this._columnsMappingRepository.SaveColumnsMappingRepoOperation(daoSave);
 
         await repoOp.Execute();
         
