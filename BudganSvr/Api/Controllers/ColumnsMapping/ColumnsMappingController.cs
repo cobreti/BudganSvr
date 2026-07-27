@@ -86,7 +86,7 @@ public class ColumnsMappingController : ControllerBase
     }
 
     [HttpGet]
-    [Route(":id")]
+    [Route("{id}")]
     public async Task<IActionResult> GetColumnsMapping(Guid id)
     {
         var useCase = this._columnsMappingService.GetColumnsMappingUseCase(id);
