@@ -17,7 +17,7 @@ internal class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseC
         this._boAddOrUpdateModel = model;
     }
 
-    public async Task Execute()
+    public async Task ExecuteAsync()
     {
         var daoSave = new DaoSaveColumnsMapping
         {

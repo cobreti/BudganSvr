@@ -5,16 +5,16 @@ namespace BudganServices.Services.ColumnsMapping.GetList;
 internal class ListColumnsMappingUseCase : IListColumnsMappingUseCase
 {
     private IColumnsMappingRepository _repository;
-    private List<ListColumnsMapping> _columnsMappings = [];
+    private List<BOListColumnsMapping> _columnsMappings = [];
 
-    public List<ListColumnsMapping> GetListResult => _columnsMappings;
+    public List<BOListColumnsMapping> GetListResult => _columnsMappings;
     
     public ListColumnsMappingUseCase(IColumnsMappingRepository repository)
     {
         this._repository = repository;
     }
     
-    public async Task Execute()
+    public async Task ExecuteAsync()
     {
         var repoOp = this._repository
             .ListColumnsMappingRepoOperation();
@@ -22,7 +22,7 @@ internal class ListColumnsMappingUseCase : IListColumnsMappingUseCase
         await repoOp.ExecuteAsync();
 
         this._columnsMappings = repoOp.GetListResult
-            .Select(x => new ListColumnsMapping
+            .Select(x => new BOListColumnsMapping
             {
                 Id = x.Id.ToString(),
                 Name = x.Name,

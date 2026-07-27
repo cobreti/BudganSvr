@@ -11,6 +11,16 @@ public class GetColumnsMappingRepoOp : BaseRepositoryOperation, IGetColumnsMappi
 
     public bool Succeeded => _succeeded;
 
+    public DaoGetColumnsMapping GetColumnsMappingResult
+    {
+        get
+        {
+            ArgumentNullException.ThrowIfNull(this._daoGetColumnsMapping);
+            
+            return this._daoGetColumnsMapping;
+        }
+    }
+
     public GetColumnsMappingRepoOp(DataContext dataContext, Guid id)
     {
         this._dataContext = dataContext;

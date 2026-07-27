@@ -40,7 +40,7 @@ public class ColumnsMappingController : ControllerBase
             };
             var addOrUpdateUseCase = this._columnsMappingService.AddOrUpdateUseCase(boModel);
 
-            await addOrUpdateUseCase.Execute();
+            await addOrUpdateUseCase.ExecuteAsync();
 
             var result = new ApiSuccessResult<Guid>(addOrUpdateUseCase.Result);
 
@@ -63,7 +63,7 @@ public class ColumnsMappingController : ControllerBase
     {
         var listColumnsMappingUseCase = this._columnsMappingService.ListColumnsMappingUseCase();
 
-        await listColumnsMappingUseCase.Execute();
+        await listColumnsMappingUseCase.ExecuteAsync();
 
         var model = listColumnsMappingUseCase.GetListResult
             .Select(x => new ListColumnsMapping

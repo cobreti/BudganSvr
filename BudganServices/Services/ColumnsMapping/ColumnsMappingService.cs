@@ -1,5 +1,6 @@
 using BudganInfra.Repositories.ColumnsMapping;
 using BudganServices.Services.ColumnsMapping.AddOrUpdate;
+using BudganServices.Services.ColumnsMapping.Get;
 using BudganServices.Services.ColumnsMapping.GetList;
 
 namespace BudganServices.Services.ColumnsMapping;
@@ -21,5 +22,10 @@ internal class ColumnsMappingService : IColumnsMappingService
     public IListColumnsMappingUseCase ListColumnsMappingUseCase()
     {
         return new ListColumnsMappingUseCase(this._columnsMappingRepository);
+    }
+
+    public IGetColumnsMappingUseCase GetColumnsMappingUseCase(Guid id)
+    {
+        return new GetColumnsMappingUseCase(this._columnsMappingRepository, id);
     }
 }
