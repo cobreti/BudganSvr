@@ -84,4 +84,35 @@ public class ColumnsMappingController : ControllerBase
 
         return this.Ok(model);
     }
+
+    [HttpGet]
+    [Route(":id")]
+    public async Task<IActionResult> GetColumnsMapping(Guid id)
+    {
+        var useCase = this._columnsMappingService.GetColumnsMappingUseCase(id);
+
+        await useCase.ExecuteAsync();
+
+        if (!useCase.Succeeded)
+        {
+            return this.NotFound();
+        }
+
+        var r = useCase.GetColumnsMappingResult;
+        var model = new GetColumnsMapping
+        {
+            Id = r.Id,
+            Name = r.Name,
+            CardNumberColumnIndex = r.CardNumberColumnIndex,
+            CardNumberColumnText = r.CardNumberColumnText,
+            DateInscriptionColumnIndex = r.DateInscriptionColumnIndex,
+            DateInscriptionColumnText = r.DateInscriptionColumnText,
+            AmountColumnIndex = r.AmountColumnIndex,
+            AmountColumnText = r.AmountColumnText,
+            DescriptionColumnIndex = r.DescriptionColumnIndex,
+            DescriptionColumnText = r.DescriptionColumnText
+        };
+        
+        return this.Ok(model);
+    }
 }
