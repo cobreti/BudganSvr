@@ -6,5 +6,5 @@ namespace BudganInfra.Repositories.ColumnsMapping;
 public interface IColumnsMappingRepository
 {
     ISaveColumnsMappingRepoOp SaveColumnsMappingRepoOperation(DaoSaveColumnsMapping daoSaveColumnsMapping);
-    IGetListColumnsMappingRepoOp GetListColumnsMappingRepoOperation();
+    IListColumnsMappingRepoOp ListColumnsMappingRepoOperation();
 }

@@ -3,16 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BudganInfra.Repositories.ColumnsMapping.GetList;
 
-internal class GetListColumnsMappingRepoOp : BaseRepositoryOperation, IGetListColumnsMappingRepoOp
+internal class ListColumnsMappingRepoOp : BaseRepositoryOperation, IListColumnsMappingRepoOp
 {
     private readonly DataContext _dataContext;
-    private List<DaoGetListColumnsMapping> _daoGetListColumnsMappings = [];
+    private List<DaoListColumnsMapping> _daoGetListColumnsMappings = [];
     private bool _succeeded = true;
 
-    public List<DaoGetListColumnsMapping> GetListResult => _daoGetListColumnsMappings;
+    public List<DaoListColumnsMapping> GetListResult => _daoGetListColumnsMappings;
     public bool Succeeded => _succeeded;
 
-    public GetListColumnsMappingRepoOp(DataContext dataContext)
+    public ListColumnsMappingRepoOp(DataContext dataContext)
     {
         this._dataContext = dataContext;
     }
@@ -20,7 +20,7 @@ internal class GetListColumnsMappingRepoOp : BaseRepositoryOperation, IGetListCo
     public async Task Execute()
     {
         this._daoGetListColumnsMappings = await this._dataContext.ColumnsMappings
-            .Select(x => new DaoGetListColumnsMapping
+            .Select(x => new DaoListColumnsMapping
             {
                 Id = x.Id.ToString(),
                 Name = x.Name,

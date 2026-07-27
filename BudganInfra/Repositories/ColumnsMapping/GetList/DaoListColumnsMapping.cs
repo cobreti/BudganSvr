@@ -1,6 +1,6 @@
 namespace BudganInfra.Repositories.ColumnsMapping.GetList;
 
-public class DaoGetListColumnsMapping
+public class DaoListColumnsMapping
 {
     public required string Id { get; set; }
     public required string Name { get; set; }

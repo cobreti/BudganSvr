@@ -56,4 +56,32 @@ public class ColumnsMappingController : ControllerBase
             throw;
         }
     }
+
+    [HttpGet]
+    [Route("ListColumnsMapping")]
+    public async Task<IActionResult> ListColumnsMapping()
+    {
+        var listColumnsMappingUseCase = this._columnsMappingService.ListColumnsMappingUseCase();
+
+        await listColumnsMappingUseCase.Execute();
+
+        var model = listColumnsMappingUseCase.GetListResult
+            .Select(x => new ListColumnsMapping
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    CardNumberColumnIndex = x.CardNumberColumnIndex,
+                    CardNumberColumnText = x.CardNumberColumnText,
+                    DateInscriptionColumnIndex = x.DateInscriptionColumnIndex,
+                    DateInscriptionColumnText = x.DateInscriptionColumnText,
+                    AmountColumnIndex = x.AmountColumnIndex,
+                    AmountColumnText = x.AmountColumnText,
+                    DescriptionColumnIndex = x.DescriptionColumnIndex,
+                    DescriptionColumnText = x.DescriptionColumnText,
+                }
+            )
+            .ToList();
+
+        return this.Ok(model);
+    }
 }

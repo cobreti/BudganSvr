@@ -21,8 +21,8 @@ internal class ColumnsMappingRepository : IColumnsMappingRepository
         return new SaveColumnsMappingRepoOp(this.dataContext, daoSaveColumnsMapping);
     }
 
-    public IGetListColumnsMappingRepoOp GetListColumnsMappingRepoOperation()
+    public IListColumnsMappingRepoOp ListColumnsMappingRepoOperation()
     {
-        return new GetListColumnsMappingRepoOp(this.dataContext);
+        return new ListColumnsMappingRepoOp(this.dataContext);
     }
 }

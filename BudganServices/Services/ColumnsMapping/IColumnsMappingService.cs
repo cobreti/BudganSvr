@@ -6,5 +6,5 @@ namespace BudganServices.Services.ColumnsMapping;
 public interface IColumnsMappingService
 {
     IAddOrUpdateColumnsMappingUseCase AddOrUpdateUseCase(BOAddOrUpdateColumnsMapping model);
-    IGetListColumnsMappingUseCase  GetListColumnsMappingUseCase(BOGetListColumnsMapping model);
+    IListColumnsMappingUseCase  ListColumnsMappingUseCase();
 }

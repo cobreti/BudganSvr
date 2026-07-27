@@ -18,8 +18,8 @@ internal class ColumnsMappingService : IColumnsMappingService
         return new AddOrUpdateColumnsMappingUseCase(this._columnsMappingRepository, model);
     }
 
-    public IGetListColumnsMappingUseCase GetListColumnsMappingUseCase(BOGetListColumnsMapping model)
+    public IListColumnsMappingUseCase ListColumnsMappingUseCase()
     {
-        return new GetListColumnsMappingUseCase(this._columnsMappingRepository);
+        return new ListColumnsMappingUseCase(this._columnsMappingRepository);
     }
 }

@@ -1,6 +1,6 @@
 namespace BudganServices.Services.ColumnsMapping.GetList;
 
-public class BOGetListColumnsMapping
+public class ListColumnsMapping
 {
     public required string Id { get; set; }
     public required string Name { get; set; }

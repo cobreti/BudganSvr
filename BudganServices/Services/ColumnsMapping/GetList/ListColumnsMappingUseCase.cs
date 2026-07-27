@@ -2,14 +2,14 @@ using BudganInfra.Repositories.ColumnsMapping;
 
 namespace BudganServices.Services.ColumnsMapping.GetList;
 
-internal class GetListColumnsMappingUseCase : IGetListColumnsMappingUseCase
+internal class ListColumnsMappingUseCase : IListColumnsMappingUseCase
 {
     private IColumnsMappingRepository _repository;
-    private List<BOGetListColumnsMapping> _columnsMappings = [];
+    private List<ListColumnsMapping> _columnsMappings = [];
 
-    public List<BOGetListColumnsMapping> GetListResult => _columnsMappings;
+    public List<ListColumnsMapping> GetListResult => _columnsMappings;
     
-    public GetListColumnsMappingUseCase(IColumnsMappingRepository repository)
+    public ListColumnsMappingUseCase(IColumnsMappingRepository repository)
     {
         this._repository = repository;
     }
@@ -17,12 +17,12 @@ internal class GetListColumnsMappingUseCase : IGetListColumnsMappingUseCase
     public async Task Execute()
     {
         var repoOp = this._repository
-            .GetListColumnsMappingRepoOperation();
+            .ListColumnsMappingRepoOperation();
         
         await repoOp.Execute();
 
         this._columnsMappings = repoOp.GetListResult
-            .Select(x => new BOGetListColumnsMapping
+            .Select(x => new ListColumnsMapping
             {
                 Id = x.Id,
                 Name = x.Name,
