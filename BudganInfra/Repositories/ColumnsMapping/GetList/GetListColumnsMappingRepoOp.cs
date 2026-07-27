@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BudganInfra.Repositories.ColumnsMapping.GetList;
 
-public class GetListColumnsMappingRepoOp : BaseRepositoryOperation, IGetListColumnsMappingRepoOp
+internal class GetListColumnsMappingRepoOp : BaseRepositoryOperation, IGetListColumnsMappingRepoOp
 {
     private readonly DataContext _dataContext;
     private List<DaoGetListColumnsMapping> _daoGetListColumnsMappings = [];

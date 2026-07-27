@@ -38,7 +38,7 @@ public class ColumnsMappingController : ControllerBase
                 DescriptionColumnIndex = model.DescriptionColumnIndex,
                 DescriptionColumnText = model.DescriptionColumnText,
             };
-            var addOrUpdateUseCase = this._columnsMappingService.GetAddOrUpdateUseCase(boModel);
+            var addOrUpdateUseCase = this._columnsMappingService.AddOrUpdateUseCase(boModel);
 
             await addOrUpdateUseCase.Execute();
 

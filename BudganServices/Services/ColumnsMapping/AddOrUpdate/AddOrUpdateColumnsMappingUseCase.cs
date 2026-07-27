@@ -3,7 +3,7 @@ using BudganInfra.Repositories.ColumnsMapping.Save;
 
 namespace BudganServices.Services.ColumnsMapping.AddOrUpdate;
 
-public class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseCase
+internal class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseCase
 {
     private readonly IColumnsMappingRepository _columnsMappingRepository;
     private readonly BOAddOrUpdateColumnsMapping _boAddOrUpdateModel;
