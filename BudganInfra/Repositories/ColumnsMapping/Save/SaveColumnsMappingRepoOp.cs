@@ -51,32 +51,25 @@ internal class SaveColumnsMappingRepoOp : BaseRepositoryOperation, ISaveColumnsM
 
     private async Task Add()
     {
-        try
+        var id = Guid.CreateVersion7();
+        var columnsMapping = new DBContext.Tables.ColumnsMapping()
         {
-            var id = Guid.CreateVersion7();
-            var columnsMapping = new DBContext.Tables.ColumnsMapping()
-            {
-                Id = id,
-                Name = this._daoSaveColumnsMapping.Name,
-                CardNumberColumnIndex = this._daoSaveColumnsMapping.CardNumberColumnIndex,
-                CardNumberColumnText = this._daoSaveColumnsMapping.CardNumberColumnText,
-                AmountColumnIndex = this._daoSaveColumnsMapping.AmountColumnIndex,
-                AmountColumnText = this._daoSaveColumnsMapping.AmountColumnText,
-                DateInscriptionColumnIndex = this._daoSaveColumnsMapping.DateInscriptionColumnIndex,
-                DateInscriptionColumnText = this._daoSaveColumnsMapping.DateInscriptionColumnText,
-                DescriptionColumnIndex = this._daoSaveColumnsMapping.DescriptionColumnIndex,
-                DescriptionColumnText = this._daoSaveColumnsMapping.DescriptionColumnText,
-            };
+            Id = id,
+            Name = this._daoSaveColumnsMapping.Name,
+            CardNumberColumnIndex = this._daoSaveColumnsMapping.CardNumberColumnIndex,
+            CardNumberColumnText = this._daoSaveColumnsMapping.CardNumberColumnText,
+            AmountColumnIndex = this._daoSaveColumnsMapping.AmountColumnIndex,
+            AmountColumnText = this._daoSaveColumnsMapping.AmountColumnText,
+            DateInscriptionColumnIndex = this._daoSaveColumnsMapping.DateInscriptionColumnIndex,
+            DateInscriptionColumnText = this._daoSaveColumnsMapping.DateInscriptionColumnText,
+            DescriptionColumnIndex = this._daoSaveColumnsMapping.DescriptionColumnIndex,
+            DescriptionColumnText = this._daoSaveColumnsMapping.DescriptionColumnText,
+        };
 
-            await this._dataContext.ColumnsMappings.AddAsync(columnsMapping);
-            await this._dataContext.SaveChangesAsync();
+        await this._dataContext.ColumnsMappings.AddAsync(columnsMapping);
+        await this._dataContext.SaveChangesAsync();
 
-            this._saveResultValue = columnsMapping.Id;
-        }
-        catch (Exception ex)
-        {
-            this._succeeded = false;
-        }
+        this._saveResultValue = columnsMapping.Id;
     }
 
     private async Task Update()
