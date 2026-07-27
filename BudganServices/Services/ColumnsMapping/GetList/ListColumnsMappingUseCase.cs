@@ -24,7 +24,7 @@ internal class ListColumnsMappingUseCase : IListColumnsMappingUseCase
         this._columnsMappings = repoOp.GetListResult
             .Select(x => new ListColumnsMapping
             {
-                Id = x.Id,
+                Id = x.Id.ToString(),
                 Name = x.Name,
                 CardNumberColumnIndex = x.CardNumberColumnIndex,
                 CardNumberColumnText = x.CardNumberColumnText,

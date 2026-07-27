@@ -22,7 +22,7 @@ internal class ListColumnsMappingRepoOp : BaseRepositoryOperation, IListColumnsM
         this._daoGetListColumnsMappings = await this._dataContext.ColumnsMappings
             .Select(x => new DaoListColumnsMapping
             {
-                Id = x.Id.ToString(),
+                Id = x.Id,
                 Name = x.Name,
                 CardNumberColumnIndex = x.CardNumberColumnIndex,
                 CardNumberColumnText = x.CardNumberColumnText,

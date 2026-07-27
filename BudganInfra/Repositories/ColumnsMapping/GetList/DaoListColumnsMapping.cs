@@ -2,7 +2,7 @@ namespace BudganInfra.Repositories.ColumnsMapping.GetList;
 
 public class DaoListColumnsMapping
 {
-    public required string Id { get; set; }
+    public required Guid Id { get; set; }
     public required string Name { get; set; }
     
     public required int CardNumberColumnIndex { get; set; }
