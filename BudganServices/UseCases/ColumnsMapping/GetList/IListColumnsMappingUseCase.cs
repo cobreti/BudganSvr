@@ -1,6 +1,5 @@
 namespace BudganServices.UseCases.ColumnsMapping.GetList;
 
-public interface IListColumnsMappingUseCase : IBaseUseCase
+public interface IListColumnsMappingUseCase : IBaseUseCaseWithResultValue<List<BOListColumnsMapping>>
 {
-    List<BOListColumnsMapping> GetListResult { get; }
 }

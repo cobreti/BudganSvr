@@ -3,13 +3,10 @@ using BudganInfra.Repositories.ColumnsMapping.Save;
 
 namespace BudganServices.UseCases.ColumnsMapping.AddOrUpdate;
 
-internal class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseCase
+internal class AddOrUpdateColumnsMappingUseCase : BaseUseCaseWithResultValue<Guid>, IAddOrUpdateColumnsMappingUseCase
 {
     private readonly IColumnsMappingRepository _columnsMappingRepository;
     private readonly BOAddOrUpdateColumnsMapping _boAddOrUpdateModel;
-    private Guid _result = Guid.Empty;
-    
-    public Guid Result => this._result;
 
     public AddOrUpdateColumnsMappingUseCase(IColumnsMappingRepository columnsMappingRepository, BOAddOrUpdateColumnsMapping model)
     {
@@ -36,7 +33,7 @@ internal class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseC
         var repoOp = this._columnsMappingRepository.SaveColumnsMappingRepoOperation(daoSave);
 
         await repoOp.ExecuteAsync();
-        
-        this._result = repoOp.ResultValue;
+
+        this.SetSucceeded(repoOp.ResultValue);
     }
 }

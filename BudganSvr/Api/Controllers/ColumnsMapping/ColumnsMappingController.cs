@@ -42,7 +42,7 @@ public class ColumnsMappingController : ControllerBase
 
             await addOrUpdateUseCase.ExecuteAsync();
 
-            var result = new ApiSuccessResult<Guid>(addOrUpdateUseCase.Result);
+            var result = new ApiSuccessResult<Guid>(addOrUpdateUseCase.ResultValue);
 
             return Ok(result);
         }
@@ -65,7 +65,7 @@ public class ColumnsMappingController : ControllerBase
 
         await listColumnsMappingUseCase.ExecuteAsync();
 
-        var model = listColumnsMappingUseCase.GetListResult
+        var model = listColumnsMappingUseCase.ResultValue
             .Select(x => new ListColumnsMapping
                 {
                     Id = x.Id,
@@ -98,7 +98,7 @@ public class ColumnsMappingController : ControllerBase
             return this.NotFound();
         }
 
-        var r = useCase.GetColumnsMappingResult;
+        var r = useCase.ResultValue;
         var model = new GetColumnsMapping
         {
             Id = r.Id,

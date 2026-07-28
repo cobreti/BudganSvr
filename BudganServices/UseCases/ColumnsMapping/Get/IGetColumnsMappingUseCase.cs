@@ -1,7 +1,5 @@
 namespace BudganServices.UseCases.ColumnsMapping.Get;
 
-public interface IGetColumnsMappingUseCase : IBaseUseCase
+public interface IGetColumnsMappingUseCase : IBaseUseCaseWithResultValue<BOGetColumnsMapping>
 {
-    bool Succeeded { get; }
-    BOGetColumnsMapping GetColumnsMappingResult { get; }
 }

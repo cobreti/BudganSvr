@@ -2,24 +2,10 @@ using BudganInfra.Repositories.ColumnsMapping;
 
 namespace BudganServices.UseCases.ColumnsMapping.Get;
 
-public class GetColumnsMappingUseCase : IGetColumnsMappingUseCase
+public class GetColumnsMappingUseCase : BaseUseCaseWithResultValue<BOGetColumnsMapping>, IGetColumnsMappingUseCase
 {
     private readonly IColumnsMappingRepository _repository;
     private readonly Guid _id;
-    private BOGetColumnsMapping? _result = null;
-    private bool _succeeded = true;
-
-    public bool Succeeded => this._succeeded;
-    
-    public BOGetColumnsMapping GetColumnsMappingResult
-    {
-        get
-        {
-            ArgumentNullException.ThrowIfNull(this._result);
-            return this._result;
-        }
-        
-    }
     
     public GetColumnsMappingUseCase(IColumnsMappingRepository repository, Guid id)
     {
@@ -37,7 +23,7 @@ public class GetColumnsMappingUseCase : IGetColumnsMappingUseCase
         {
             var r = repOp.ResultValue;
 
-            this._result = new BOGetColumnsMapping
+            var result = new BOGetColumnsMapping
             {
                 Id = r.Id,
                 Name = r.Name,
@@ -50,10 +36,12 @@ public class GetColumnsMappingUseCase : IGetColumnsMappingUseCase
                 DescriptionColumnIndex = r.DescriptionColumnIndex,
                 DescriptionColumnText = r.DescriptionColumnText,
             };
+            
+            this.SetSucceeded(result);
         }
         else
         {
-            this._succeeded = false;
+            this.SetFailed();
         }
     }
 }

@@ -2,12 +2,9 @@ using BudganInfra.Repositories.ColumnsMapping;
 
 namespace BudganServices.UseCases.ColumnsMapping.GetList;
 
-internal class ListColumnsMappingUseCase : IListColumnsMappingUseCase
+internal class ListColumnsMappingUseCase : BaseUseCaseWithResultValue<List<BOListColumnsMapping>>, IListColumnsMappingUseCase
 {
     private IColumnsMappingRepository _repository;
-    private List<BOListColumnsMapping> _columnsMappings = [];
-
-    public List<BOListColumnsMapping> GetListResult => this._columnsMappings;
     
     public ListColumnsMappingUseCase(IColumnsMappingRepository repository)
     {
@@ -21,7 +18,7 @@ internal class ListColumnsMappingUseCase : IListColumnsMappingUseCase
         
         await repoOp.ExecuteAsync();
 
-        this._columnsMappings = repoOp.ResultValue
+        var result = repoOp.ResultValue
             .Select(x => new BOListColumnsMapping
             {
                 Id = x.Id.ToString(),
@@ -36,5 +33,7 @@ internal class ListColumnsMappingUseCase : IListColumnsMappingUseCase
                 DescriptionColumnText = x.DescriptionColumnText,
             })
             .ToList();
+
+        this.SetSucceeded(result);
     }
 }
