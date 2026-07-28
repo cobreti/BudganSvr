@@ -1,35 +1,15 @@
-using BudganGlobal.Errors;
-using BudganGlobal.Errors.Exceptions;
 using BudganInfra.DBContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace BudganInfra.Repositories.ColumnsMapping.Save;
 
-internal class SaveColumnsMappingRepoOp : BaseRepositoryOperation, ISaveColumnsMappingRepoOp
+internal class SaveColumnsMappingRepoOp : BaseRepositoryOperationWithResultValue<Guid>, ISaveColumnsMappingRepoOp
 {
     private readonly DataContext _dataContext;
     private readonly DaoSaveColumnsMapping _daoSaveColumnsMapping;
-    private Guid _saveResultValue = Guid.Empty;
-    private bool _succeeded = true;
-    private ErrorValue? _errorValue = null;
 
     public DaoSaveColumnsMapping DaoSaveColumnsMapping => this._daoSaveColumnsMapping;
     
-    public Guid SaveResultValue => this._saveResultValue;
-    public bool Succeeded => this._succeeded;
-
-    public ErrorValue ErrorValue
-    {
-        get
-        {
-            if (this._succeeded || this._errorValue == null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            return this._errorValue;
-        }
-    }
 
     public SaveColumnsMappingRepoOp(DataContext dataContext, DaoSaveColumnsMapping daoSaveColumnsMapping)
     {
@@ -69,7 +49,7 @@ internal class SaveColumnsMappingRepoOp : BaseRepositoryOperation, ISaveColumnsM
         await this._dataContext.ColumnsMappings.AddAsync(columnsMapping);
         await this._dataContext.SaveChangesAsync();
 
-        this._saveResultValue = columnsMapping.Id;
+        this.SetSucceeded(columnsMapping.Id);
     }
 
     private async Task Update()
@@ -95,6 +75,6 @@ internal class SaveColumnsMappingRepoOp : BaseRepositoryOperation, ISaveColumnsM
         this._dataContext.ColumnsMappings.Update(columnsMapping);
         await this._dataContext.SaveChangesAsync();
 
-        this._saveResultValue = id;
+        this.SetSucceeded(id);
     }
 }

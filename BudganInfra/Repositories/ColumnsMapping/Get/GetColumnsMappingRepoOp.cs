@@ -2,24 +2,10 @@ using BudganInfra.DBContext;
 
 namespace BudganInfra.Repositories.ColumnsMapping.Get;
 
-public class GetColumnsMappingRepoOp : BaseRepositoryOperation, IGetColumnsMappingRepoOp
+public class GetColumnsMappingRepoOp : BaseRepositoryOperationWithResultValue<DaoGetColumnsMapping>, IGetColumnsMappingRepoOp
 {
     private readonly DataContext _dataContext;
     private readonly Guid _id;
-    private DaoGetColumnsMapping? _daoGetColumnsMapping = null;
-    private bool _succeeded = true;
-
-    public bool Succeeded => _succeeded;
-
-    public DaoGetColumnsMapping GetColumnsMappingResult
-    {
-        get
-        {
-            ArgumentNullException.ThrowIfNull(this._daoGetColumnsMapping);
-            
-            return this._daoGetColumnsMapping;
-        }
-    }
 
     public GetColumnsMappingRepoOp(DataContext dataContext, Guid id)
     {
@@ -34,7 +20,7 @@ public class GetColumnsMappingRepoOp : BaseRepositoryOperation, IGetColumnsMappi
 
         if (entity != null)
         {
-            this._daoGetColumnsMapping = new DaoGetColumnsMapping
+            this.SetSucceeded(new DaoGetColumnsMapping
             {
                 Id = entity.Id.ToString(),
                 Name = entity.Name,
@@ -46,11 +32,11 @@ public class GetColumnsMappingRepoOp : BaseRepositoryOperation, IGetColumnsMappi
                 AmountColumnText = entity.AmountColumnText,
                 DescriptionColumnIndex = entity.DescriptionColumnIndex,
                 DescriptionColumnText = entity.DescriptionColumnText
-            };
+            });
         }
         else
         {
-            this._succeeded = false;
+            this.SetFailed();
         }
     }
 }

@@ -1,7 +1,6 @@
 namespace BudganInfra.Repositories.ColumnsMapping.GetList;
 
-public interface IListColumnsMappingRepoOp : IRepositoryOperation
+public interface IListColumnsMappingRepoOp : IRepositoryOperationWithResultValue<List<DaoListColumnsMapping>>
 {
-    List<DaoListColumnsMapping> GetListResult { get; }
 }
 

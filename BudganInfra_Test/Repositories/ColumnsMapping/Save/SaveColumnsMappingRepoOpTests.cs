@@ -67,7 +67,7 @@ public class SaveColumnsMappingRepoOpTests
 
         await op.ExecuteAsync();
 
-        Assert.NotEqual(Guid.Empty, op.SaveResultValue);
+        Assert.NotEqual(Guid.Empty, op.ResultValue);
         Assert.True(op.Succeeded);
         Assert.Single(context.ColumnsMappings);
     }
@@ -81,7 +81,7 @@ public class SaveColumnsMappingRepoOpTests
 
         await op.ExecuteAsync();
 
-        var persisted = await context.ColumnsMappings.SingleAsync(x => x.Id == op.SaveResultValue);
+        var persisted = await context.ColumnsMappings.SingleAsync(x => x.Id == op.ResultValue);
         Assert.Equal(dao.Name, persisted.Name);
         Assert.Equal(dao.CardNumberColumnIndex, persisted.CardNumberColumnIndex);
         Assert.Equal(dao.CardNumberColumnText, persisted.CardNumberColumnText);
@@ -105,7 +105,7 @@ public class SaveColumnsMappingRepoOpTests
 
         await op.ExecuteAsync();
 
-        Assert.Equal(seeded.Id, op.SaveResultValue);
+        Assert.Equal(seeded.Id, op.ResultValue);
         Assert.Single(context.ColumnsMappings);
 
         var persisted = await context.ColumnsMappings.SingleAsync(x => x.Id == seeded.Id);

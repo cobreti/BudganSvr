@@ -1,6 +1,5 @@
 namespace BudganInfra.Repositories.ColumnsMapping.Get;
 
-public interface IGetColumnsMappingRepoOp : IRepositoryOperation
+public interface IGetColumnsMappingRepoOp : IRepositoryOperationWithResultValue<DaoGetColumnsMapping>
 {
-    DaoGetColumnsMapping GetColumnsMappingResult { get; }
 }

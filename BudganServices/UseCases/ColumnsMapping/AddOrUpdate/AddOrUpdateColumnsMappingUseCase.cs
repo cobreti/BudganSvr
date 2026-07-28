@@ -37,6 +37,6 @@ internal class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseC
 
         await repoOp.ExecuteAsync();
         
-        this._result = repoOp.SaveResultValue;
+        this._result = repoOp.ResultValue;
     }
 }

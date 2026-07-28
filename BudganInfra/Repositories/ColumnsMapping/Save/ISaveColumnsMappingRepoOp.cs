@@ -1,6 +1,5 @@
 namespace BudganInfra.Repositories.ColumnsMapping.Save;
 
-public interface ISaveColumnsMappingRepoOp : IRepositoryOperation
+public interface ISaveColumnsMappingRepoOp : IRepositoryOperationWithResultValue<Guid>
 {
-    Guid SaveResultValue { get; }
 }

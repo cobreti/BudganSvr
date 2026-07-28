@@ -21,7 +21,7 @@ internal class ListColumnsMappingUseCase : IListColumnsMappingUseCase
         
         await repoOp.ExecuteAsync();
 
-        this._columnsMappings = repoOp.GetListResult
+        this._columnsMappings = repoOp.ResultValue
             .Select(x => new BOListColumnsMapping
             {
                 Id = x.Id.ToString(),

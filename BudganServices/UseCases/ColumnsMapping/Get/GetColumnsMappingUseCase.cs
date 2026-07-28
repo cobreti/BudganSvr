@@ -35,7 +35,7 @@ public class GetColumnsMappingUseCase : IGetColumnsMappingUseCase
 
         if (repOp.Succeeded)
         {
-            var r = repOp.GetColumnsMappingResult;
+            var r = repOp.ResultValue;
 
             this._result = new BOGetColumnsMapping
             {
