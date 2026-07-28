@@ -5,20 +5,20 @@ namespace BudganGlobal.Errors.Exceptions;
 [Serializable]
 public class BudganException : Exception
 {
-    public ErrorValue Error { get; }
+    public BudganErrorValue BudganError { get; }
     
-    public BudganException(ErrorValue error) : base(error.ErrorMessage)
+    public BudganException(BudganErrorValue budganError) : base(budganError.ErrorMessage)
     {
-        this.Error = error;
+        this.BudganError = budganError;
     }
     
-    protected BudganException(string message, ErrorValue error, Exception innerException) : base(message, innerException)
+    protected BudganException(string message, BudganErrorValue budganError, Exception innerException) : base(message, innerException)
     {
-        this.Error = error;
+        this.BudganError = budganError;
     }
 
-    protected BudganException(string message, ErrorValue error) : base(message)
+    protected BudganException(string message, BudganErrorValue budganError) : base(message)
     {
-        this.Error = error;
+        this.BudganError = budganError;
     }
 }

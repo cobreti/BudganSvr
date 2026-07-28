@@ -1,4 +1,5 @@
 using BudganInfra.DBContext;
+using BudganInfra.Repositories.ColumnsMapping.Delete;
 using BudganInfra.Repositories.ColumnsMapping.Get;
 using BudganInfra.Repositories.ColumnsMapping.GetList;
 using BudganInfra.Repositories.ColumnsMapping.Save;
@@ -30,5 +31,10 @@ internal class ColumnsMappingRepository : IColumnsMappingRepository
     public IGetColumnsMappingRepoOp GetColumnsMappingRepoOperation(Guid id)
     {
         return new GetColumnsMappingRepoOp(this.dataContext, id);
+    }
+
+    public IDeleteColumnsMappingRepoOp DeleteColumnsMappingRepoOperation(Guid id)
+    {
+        return new DeleteColumnsMappingRepoOp(this.dataContext, id);
     }
 }

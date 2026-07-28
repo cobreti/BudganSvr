@@ -48,7 +48,7 @@ public class ColumnsMappingController : ControllerBase
         }
         catch (BudganException ex)
         {
-            if (ex.Error == ErrorValue.ResourceNotFound)
+            if (ex.BudganError == BudganErrorValue.ResourceNotFound)
             {
                 return this.NotFound();
             }
@@ -114,5 +114,21 @@ public class ColumnsMappingController : ControllerBase
         };
         
         return this.Ok(model);
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    public async Task<IActionResult> DeleteColumnsMapping(Guid id)
+    {
+        var useCase = this._columnsMappingUseCaseFactory.DeleteColumnsMappingUseCase(id);
+
+        await useCase.ExecuteAsync();
+
+        if (!useCase.Succeeded)
+        {
+            return this.NotFound();
+        }
+
+        return this.Ok(useCase.ResultValue);
     }
 }

@@ -1,5 +1,6 @@
 using BudganInfra.Repositories.ColumnsMapping;
 using BudganServices.UseCases.ColumnsMapping.AddOrUpdate;
+using BudganServices.UseCases.ColumnsMapping.Delete;
 using BudganServices.UseCases.ColumnsMapping.Get;
 using BudganServices.UseCases.ColumnsMapping.GetList;
 
@@ -27,5 +28,10 @@ internal class ColumnsMappingUseCaseFactory : IColumnsMappingUseCaseFactory
     public IGetColumnsMappingUseCase GetColumnsMappingUseCase(Guid id)
     {
         return new GetColumnsMappingUseCase(this._columnsMappingRepository, id);
+    }
+
+    public IDeleteColumnsMappingUseCase DeleteColumnsMappingUseCase(Guid id)
+    {
+        return new DeleteColumnsMappingUseCase(this._columnsMappingRepository, id);
     }
 }

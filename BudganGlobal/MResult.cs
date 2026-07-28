@@ -6,9 +6,9 @@ public readonly struct MResult<T>
 {
     public bool Succeeded { get; }
     public T? Value { get; }
-    public ErrorValue? ErrorValue { get; }
+    public BudganErrorValue? ErrorValue { get; }
     
-    private MResult(bool succeeded, T? value, ErrorValue? errorValue)
+    private MResult(bool succeeded, T? value, BudganErrorValue? errorValue)
     {
         this.Succeeded = succeeded;
         this.Value = value;
@@ -20,9 +20,9 @@ public readonly struct MResult<T>
         return new MResult<T>(true, value, null);
     }
 
-    public static MResult<T> Failure(ErrorValue errorValue)
+    public static MResult<T> Failure(BudganErrorValue budganErrorValue)
     {
-        return new MResult<T>(false, default, errorValue);
+        return new MResult<T>(false, default, budganErrorValue);
     }
 }
 

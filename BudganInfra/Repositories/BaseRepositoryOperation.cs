@@ -8,11 +8,11 @@ namespace BudganInfra.Repositories;
 
 public abstract class BaseRepositoryOperation
 {
-    private ErrorValue? _errorValue = null;
+    private BudganErrorValue? _errorValue = null;
 
     public bool Succeeded { get; protected set; } = true;
 
-    public ErrorValue ErrorValue
+    public BudganErrorValue BudganErrorValue
     {
         get
         {
@@ -31,7 +31,7 @@ public abstract class BaseRepositoryOperation
     {
         if (entity == null)
         {
-            throw new BudganException(ErrorValue.ResourceNotFound);
+            throw new BudganException(BudganErrorValue.ResourceNotFound);
         }
 
         if (updateModel.Timestamp == null)
@@ -55,9 +55,9 @@ public abstract class BaseRepositoryOperation
         this.Succeeded = false;
     }
 
-    protected void SetFailed(ErrorValue errorValue)
+    protected void SetFailed(BudganErrorValue budganErrorValue)
     {
-        this.ErrorValue = errorValue;
+        this.BudganErrorValue = budganErrorValue;
         this.Succeeded = false;
     }
 }

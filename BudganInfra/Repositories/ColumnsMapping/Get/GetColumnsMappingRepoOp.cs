@@ -1,4 +1,5 @@
 using BudganInfra.DBContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudganInfra.Repositories.ColumnsMapping.Get;
 
@@ -15,8 +16,8 @@ public class GetColumnsMappingRepoOp : BaseRepositoryOperationWithResultValue<Da
 
     public async Task ExecuteAsync()
     {
-        var entity = this._dataContext.ColumnsMappings
-            .FirstOrDefault(x => x.Id == this._id);
+        var entity = await this._dataContext.ColumnsMappings
+            .FirstOrDefaultAsync(x => x.Id == this._id);
 
         if (entity != null)
         {

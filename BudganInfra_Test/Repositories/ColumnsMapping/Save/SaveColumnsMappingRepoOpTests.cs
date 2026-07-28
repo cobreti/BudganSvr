@@ -125,7 +125,7 @@ public class SaveColumnsMappingRepoOpTests
 
         var ex = await Assert.ThrowsAsync<BudganException>(() => op.ExecuteAsync());
 
-        Assert.Equal(ErrorValue.ResourceNotFound, ex.Error);
+        Assert.Equal(BudganErrorValue.ResourceNotFound, ex.BudganError);
     }
 
     [Fact]
@@ -179,6 +179,6 @@ public class SaveColumnsMappingRepoOpTests
 
         await op.ExecuteAsync();
 
-        Assert.Throws<InvalidOperationException>(() => op.ErrorValue);
+        Assert.Throws<InvalidOperationException>(() => op.BudganErrorValue);
     }
 }
