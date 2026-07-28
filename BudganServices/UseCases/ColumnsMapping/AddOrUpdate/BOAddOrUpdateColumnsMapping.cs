@@ -1,4 +1,4 @@
-namespace BudganServices.Services.ColumnsMapping.AddOrUpdate;
+namespace BudganServices.UseCases.ColumnsMapping.AddOrUpdate;
 
 public class BOAddOrUpdateColumnsMapping
 {

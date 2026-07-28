@@ -1,7 +1,7 @@
 using BudganGlobal.Errors;
 using BudganGlobal.Errors.Exceptions;
-using BudganServices.Services.ColumnsMapping;
-using BudganServices.Services.ColumnsMapping.AddOrUpdate;
+using BudganServices.UseCases.ColumnsMapping;
+using BudganServices.UseCases.ColumnsMapping.AddOrUpdate;
 using BudganSvr.Api.Controllers.ColumnsMapping.Models;
 using BudganSvr.Api.Types;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +12,11 @@ namespace BudganSvr.Api.Controllers.ColumnsMapping;
 [Route("api/[controller]")]
 public class ColumnsMappingController : ControllerBase
 {
-    private readonly IColumnsMappingService _columnsMappingService;
+    private readonly IColumnsMappingUseCaseFactory _columnsMappingUseCaseFactory;
 
-    public ColumnsMappingController(IColumnsMappingService columnsMappingService)
+    public ColumnsMappingController(IColumnsMappingUseCaseFactory columnsMappingUseCaseFactory)
     {
-        this._columnsMappingService = columnsMappingService;
+        this._columnsMappingUseCaseFactory = columnsMappingUseCaseFactory;
     }
     
     [HttpPost]
@@ -38,7 +38,7 @@ public class ColumnsMappingController : ControllerBase
                 DescriptionColumnIndex = model.DescriptionColumnIndex,
                 DescriptionColumnText = model.DescriptionColumnText,
             };
-            var addOrUpdateUseCase = this._columnsMappingService.AddOrUpdateUseCase(boModel);
+            var addOrUpdateUseCase = this._columnsMappingUseCaseFactory.AddOrUpdateUseCase(boModel);
 
             await addOrUpdateUseCase.ExecuteAsync();
 
@@ -61,7 +61,7 @@ public class ColumnsMappingController : ControllerBase
     [Route("List")]
     public async Task<IActionResult> ListColumnsMapping()
     {
-        var listColumnsMappingUseCase = this._columnsMappingService.ListColumnsMappingUseCase();
+        var listColumnsMappingUseCase = this._columnsMappingUseCaseFactory.ListColumnsMappingUseCase();
 
         await listColumnsMappingUseCase.ExecuteAsync();
 
@@ -89,7 +89,7 @@ public class ColumnsMappingController : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> GetColumnsMapping(Guid id)
     {
-        var useCase = this._columnsMappingService.GetColumnsMappingUseCase(id);
+        var useCase = this._columnsMappingUseCaseFactory.GetColumnsMappingUseCase(id);
 
         await useCase.ExecuteAsync();
 

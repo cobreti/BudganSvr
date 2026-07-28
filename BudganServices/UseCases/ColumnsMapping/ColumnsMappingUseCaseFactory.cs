@@ -1,17 +1,17 @@
 using BudganInfra.Repositories.ColumnsMapping;
-using BudganServices.Services.ColumnsMapping.AddOrUpdate;
-using BudganServices.Services.ColumnsMapping.Get;
-using BudganServices.Services.ColumnsMapping.GetList;
+using BudganServices.UseCases.ColumnsMapping.AddOrUpdate;
+using BudganServices.UseCases.ColumnsMapping.Get;
+using BudganServices.UseCases.ColumnsMapping.GetList;
 
-namespace BudganServices.Services.ColumnsMapping;
+namespace BudganServices.UseCases.ColumnsMapping;
 
-internal class ColumnsMappingService : IColumnsMappingService
+internal class ColumnsMappingUseCaseFactory : IColumnsMappingUseCaseFactory
 {
     private readonly IColumnsMappingRepository _columnsMappingRepository;
     
-    public ColumnsMappingService(IColumnsMappingRepository columnsMappingRepository)
+    public ColumnsMappingUseCaseFactory(IColumnsMappingRepository columnsMappingRepository)
     {
-        _columnsMappingRepository = columnsMappingRepository;
+        this._columnsMappingRepository = columnsMappingRepository;
     }
 
     public IAddOrUpdateColumnsMappingUseCase AddOrUpdateUseCase(BOAddOrUpdateColumnsMapping model)

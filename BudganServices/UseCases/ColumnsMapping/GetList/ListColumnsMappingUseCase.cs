@@ -1,13 +1,13 @@
 using BudganInfra.Repositories.ColumnsMapping;
 
-namespace BudganServices.Services.ColumnsMapping.GetList;
+namespace BudganServices.UseCases.ColumnsMapping.GetList;
 
 internal class ListColumnsMappingUseCase : IListColumnsMappingUseCase
 {
     private IColumnsMappingRepository _repository;
     private List<BOListColumnsMapping> _columnsMappings = [];
 
-    public List<BOListColumnsMapping> GetListResult => _columnsMappings;
+    public List<BOListColumnsMapping> GetListResult => this._columnsMappings;
     
     public ListColumnsMappingUseCase(IColumnsMappingRepository repository)
     {

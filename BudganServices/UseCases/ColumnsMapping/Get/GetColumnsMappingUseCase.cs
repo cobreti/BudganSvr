@@ -1,6 +1,6 @@
 using BudganInfra.Repositories.ColumnsMapping;
 
-namespace BudganServices.Services.ColumnsMapping.Get;
+namespace BudganServices.UseCases.ColumnsMapping.Get;
 
 public class GetColumnsMappingUseCase : IGetColumnsMappingUseCase
 {
@@ -9,7 +9,7 @@ public class GetColumnsMappingUseCase : IGetColumnsMappingUseCase
     private BOGetColumnsMapping? _result = null;
     private bool _succeeded = true;
 
-    public bool Succeeded => _succeeded;
+    public bool Succeeded => this._succeeded;
     
     public BOGetColumnsMapping GetColumnsMappingResult
     {

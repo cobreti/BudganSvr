@@ -1,7 +1,7 @@
 using BudganInfra.Repositories.ColumnsMapping;
 using BudganInfra.Repositories.ColumnsMapping.Save;
 
-namespace BudganServices.Services.ColumnsMapping.AddOrUpdate;
+namespace BudganServices.UseCases.ColumnsMapping.AddOrUpdate;
 
 internal class AddOrUpdateColumnsMappingUseCase : IAddOrUpdateColumnsMappingUseCase
 {
