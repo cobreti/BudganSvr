@@ -1,4 +1,5 @@
 using BudganInfra.DBContext;
+using BudganInfra.Repositories.Account;
 using BudganInfra.Repositories.ColumnsMapping;
 using BudganInfra.Repositories.UserAccount;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IUserAccountRepository, UserAccountRepository>();
         services.AddScoped<IColumnsMappingRepository, ColumnsMappingRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
         
         return services;
     }
