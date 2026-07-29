@@ -1,5 +1,6 @@
 using BudganInfra.Repositories.Account;
 using BudganServices.UseCases.Account.AddOrUpdate;
+using BudganServices.UseCases.Account.GetList;
 
 namespace BudganServices.UseCases.Account;
 
@@ -15,5 +16,10 @@ internal class AccountUseCaseFactory : IAccountUseCaseFactory
     public IAddOrUpdateAccountUseCase AddOrUpdateUseCase(BOAddOrUpdateAccount model)
     {
         return new AddOrUpdateAccountUseCase(this._accountRepository, model);
+    }
+
+    public IListAccountUseCase ListAccountUseCase()
+    {
+        return new ListAccountUseCase(this._accountRepository);
     }
 }

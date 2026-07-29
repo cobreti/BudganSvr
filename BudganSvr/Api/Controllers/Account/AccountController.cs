@@ -51,4 +51,27 @@ public class AccountController : ControllerBase
             throw;
         }
     }
+
+    [HttpGet]
+    [Route("List")]
+    public async Task<IActionResult> ListAccount()
+    {
+        var listAccountUseCase = this._accountUseCaseFactory.ListAccountUseCase();
+
+        await listAccountUseCase.ExecuteAsync();
+
+        var model = listAccountUseCase.ResultValue
+            .Select(x => new ListAccount
+            {
+                Id = x.Id,
+                Name = x.Name,
+                ColumnsMappingId = x.ColumnsMappingId,
+                AccountType = x.AccountType,
+            })
+            .ToList();
+
+        var result = new ApiSuccessResult<List<ListAccount>>(model);
+
+        return this.Ok(result);
+    }
 }
