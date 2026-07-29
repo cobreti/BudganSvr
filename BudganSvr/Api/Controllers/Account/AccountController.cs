@@ -74,4 +74,30 @@ public class AccountController : ControllerBase
 
         return this.Ok(result);
     }
+
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<IActionResult> GetAccount(Guid id)
+    {
+        var useCase = this._accountUseCaseFactory.GetAccountUseCase(id);
+
+        await useCase.ExecuteAsync();
+
+        if (!useCase.Succeeded)
+        {
+            return this.NotFound();
+        }
+
+        var r = useCase.ResultValue;
+        var model = new GetAccount
+        {
+            Id = r.Id,
+            Timestamp = r.Timestamp,
+            Name = r.Name,
+            ColumnsMappingId = r.ColumnsMappingId,
+            AccountType = r.AccountType,
+        };
+
+        return this.Ok(new ApiSuccessResult<GetAccount>(model));
+    }
 }
