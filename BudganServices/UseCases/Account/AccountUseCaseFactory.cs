@@ -1,5 +1,6 @@
 using BudganInfra.Repositories.Account;
 using BudganServices.UseCases.Account.AddOrUpdate;
+using BudganServices.UseCases.Account.Delete;
 using BudganServices.UseCases.Account.Get;
 using BudganServices.UseCases.Account.GetList;
 
@@ -27,5 +28,10 @@ internal class AccountUseCaseFactory : IAccountUseCaseFactory
     public IGetAccountUseCase GetAccountUseCase(Guid id)
     {
         return new GetAccountUseCase(this._accountRepository, id);
+    }
+
+    public IDeleteAccountUseCase DeleteAccountUseCase(Guid id)
+    {
+        return new DeleteAccountUseCase(this._accountRepository, id);
     }
 }

@@ -100,4 +100,20 @@ public class AccountController : ControllerBase
 
         return this.Ok(new ApiSuccessResult<GetAccount>(model));
     }
+
+    [HttpDelete]
+    [Route("{id}")]
+    public async Task<IActionResult> DeleteAccount(Guid id)
+    {
+        var useCase = this._accountUseCaseFactory.DeleteAccountUseCase(id);
+
+        await useCase.ExecuteAsync();
+
+        if (!useCase.Succeeded)
+        {
+            return this.NotFound();
+        }
+
+        return this.Ok(new ApiSuccessResult<Guid>(useCase.ResultValue));
+    }
 }

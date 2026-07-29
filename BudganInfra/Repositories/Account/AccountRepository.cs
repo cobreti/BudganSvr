@@ -1,4 +1,5 @@
 using BudganInfra.DBContext;
+using BudganInfra.Repositories.Account.Delete;
 using BudganInfra.Repositories.Account.Get;
 using BudganInfra.Repositories.Account.GetList;
 using BudganInfra.Repositories.Account.Save;
@@ -30,5 +31,10 @@ internal class AccountRepository : IAccountRepository
     public IGetAccountRepoOp GetAccountRepoOperation(Guid id)
     {
         return new GetAccountRepoOp(this._dataContext, id);
+    }
+
+    public IDeleteAccountRepoOp DeleteAccountRepoOperation(Guid id)
+    {
+        return new DeleteAccountRepoOp(this._dataContext, id);
     }
 }
