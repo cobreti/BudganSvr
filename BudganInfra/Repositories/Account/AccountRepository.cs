@@ -1,4 +1,5 @@
 using BudganInfra.DBContext;
+using BudganInfra.Repositories.Account.Get;
 using BudganInfra.Repositories.Account.GetList;
 using BudganInfra.Repositories.Account.Save;
 using Microsoft.Extensions.Logging;
@@ -24,5 +25,10 @@ internal class AccountRepository : IAccountRepository
     public IListAccountRepoOp ListAccountRepoOperation()
     {
         return new ListAccountRepoOp(this._dataContext);
+    }
+
+    public IGetAccountRepoOp GetAccountRepoOperation(Guid id)
+    {
+        return new GetAccountRepoOp(this._dataContext, id);
     }
 }
