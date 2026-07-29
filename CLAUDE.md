@@ -75,6 +75,10 @@ DOTNET_ROOT=/opt/homebrew/Cellar/dotnet/10.0.301/libexec ~/.dotnet/tools/dotnet-
 ```
 `dotnet-ef` is a global tool but `~/.dotnet/tools` isn't on PATH and its apphost can't locate the SDK without `DOTNET_ROOT` set explicitly (Homebrew dotnet install) — always pass it, or the command fails with "You must install .NET to run this application." Local dev DB: SQL Server on `localhost,1433`, db `Budgan`, `sa`/`P@ssword` (see `appsettings.Development.json`, `Database/Start-MssqlContainer.ps1`). Confirm with the user before reverting/dropping tables on a real (non-throwaway) DB.
 
+## Plan output
+
+When a plan is created (e.g. via plan mode), write it to an `.md` file and open it in an editor tab — do not print the plan to the console.
+
 ## Commands
 
 ```bash
