@@ -56,10 +56,6 @@ namespace BudganInfra.Migrations
             modelBuilder.Entity("BudganInfra.DBContext.Tables.AccountReferenceBalance", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Balance")
@@ -74,9 +70,6 @@ namespace BudganInfra.Migrations
                         .HasDefaultValueSql("GETUTCDATE()");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AccountId")
-                        .IsUnique();
 
                     b.ToTable("AccountReferenceBalance");
                 });
@@ -164,7 +157,7 @@ namespace BudganInfra.Migrations
                 {
                     b.HasOne("BudganInfra.DBContext.Tables.Account", "Account")
                         .WithOne("AccountReferenceBalance")
-                        .HasForeignKey("BudganInfra.DBContext.Tables.AccountReferenceBalance", "AccountId")
+                        .HasForeignKey("BudganInfra.DBContext.Tables.AccountReferenceBalance", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

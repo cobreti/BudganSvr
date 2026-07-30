@@ -7,7 +7,6 @@ public class AccountReferenceBalance : BaseEntity
 {
     public DateOnly Date { get; set; }
     public decimal Balance { get; set; }
-    
-    public required Guid AccountId { get; set; }
+
     public Account Account { get; set; }
 }

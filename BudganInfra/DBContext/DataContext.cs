@@ -33,7 +33,7 @@ public class DataContext(DbContextOptions<DataContext> options) : Microsoft.Enti
                 .HasDefaultValueSql("GETUTCDATE()");
             entity.HasOne(arb => arb.Account)
                 .WithOne(a => a.AccountReferenceBalance)
-                .HasForeignKey<AccountReferenceBalance>(arb => arb.AccountId);
+                .HasForeignKey<AccountReferenceBalance>(arb => arb.Id);
         });
 
         base.OnModelCreating(modelBuilder);

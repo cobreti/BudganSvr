@@ -1,4 +1,6 @@
 using BudganInfra.DBContext;
+using BudganInfra.DBContext.Tables;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudganInfra.Repositories.Account.Save;
 
@@ -35,29 +37,64 @@ public class SaveAccountRepoOp : BaseRepositoryOperationWithResultValue<Guid>, I
             AccountType = this._daoSaveAccount.AccountType,
             ColumnsMappingId = this._daoSaveAccount.ColumnsMappingId,
         };
-        
+
+        if (this._daoSaveAccount.ReferenceBalance != null)
+        {
+            accountEntity.AccountReferenceBalance = new AccountReferenceBalance
+            {
+                Id = id,
+                Date = this._daoSaveAccount.ReferenceBalance.Date,
+                Balance = this._daoSaveAccount.ReferenceBalance.Balance,
+            };
+        }
+
         await _context.AddAsync(accountEntity);
         await _context.SaveChangesAsync();
-        
+
         this.SetSucceeded(id);
     }
 
     private async Task Update()
     {
         ArgumentNullException.ThrowIfNull(this._daoSaveAccount.Id);
-        
+
         var id = Guid.Parse(this._daoSaveAccount.Id);
-        var entity = this._context.Accounts.FirstOrDefault(x => x.Id == id);
+        var entity = await this._context.Accounts
+            .Include(a => a.AccountReferenceBalance)
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         ValidateCanPerformUpdate(entity, this._daoSaveAccount);
-        
+
         entity.Name = this._daoSaveAccount.Name;
         entity.AccountType = this._daoSaveAccount.AccountType;
         entity.ColumnsMappingId = this._daoSaveAccount.ColumnsMappingId;
-        
+
+        if (this._daoSaveAccount.ReferenceBalance != null)
+        {
+            if (entity.AccountReferenceBalance != null)
+            {
+                entity.AccountReferenceBalance.Date = this._daoSaveAccount.ReferenceBalance.Date;
+                entity.AccountReferenceBalance.Balance = this._daoSaveAccount.ReferenceBalance.Balance;
+            }
+            else
+            {
+                entity.AccountReferenceBalance = new AccountReferenceBalance
+                {
+                    Id = id,
+                    Date = this._daoSaveAccount.ReferenceBalance.Date,
+                    Balance = this._daoSaveAccount.ReferenceBalance.Balance,
+                };
+            }
+        }
+        else if (entity.AccountReferenceBalance != null)
+        {
+            this._context.Remove(entity.AccountReferenceBalance);
+            entity.AccountReferenceBalance = null;
+        }
+
         this._context.Update(entity);
         await _context.SaveChangesAsync();
-        
+
         this.SetSucceeded(id);
     }
 }

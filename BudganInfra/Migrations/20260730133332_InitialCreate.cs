@@ -73,15 +73,14 @@ namespace BudganInfra.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
                     Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AccountReferenceBalance", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AccountReferenceBalance_Account_AccountId",
-                        column: x => x.AccountId,
+                        name: "FK_AccountReferenceBalance_Account_Id",
+                        column: x => x.Id,
                         principalTable: "Account",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -91,12 +90,6 @@ namespace BudganInfra.Migrations
                 name: "IX_Account_ColumnsMappingId",
                 table: "Account",
                 column: "ColumnsMappingId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AccountReferenceBalance_AccountId",
-                table: "AccountReferenceBalance",
-                column: "AccountId",
-                unique: true);
         }
 
         /// <inheritdoc />
