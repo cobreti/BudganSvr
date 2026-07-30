@@ -32,6 +32,13 @@ public class AccountController : ControllerBase
                 Name = model.Name,
                 ColumnsMappingId = model.ColumnsMappingId,
                 AccountType = model.AccountType,
+                ReferenceBalance = model.ReferenceBalance == null
+                    ? null
+                    : new BOAccountReferenceBalance
+                    {
+                        Date = model.ReferenceBalance.Date,
+                        Balance = model.ReferenceBalance.Balance,
+                    },
             };
             var addOrUpdateUseCase = this._accountUseCaseFactory.AddOrUpdateUseCase(boModel);
 
