@@ -5,7 +5,7 @@ namespace BudganInfra.DBContext.Tables;
 [Table("AccountReferenceBalance")]
 public class AccountReferenceBalance : BaseEntity
 {
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
     public decimal Balance { get; set; }
     
     public required Guid AccountId { get; set; }
