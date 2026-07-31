@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudganInfra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260730133332_InitialCreate")]
+    [Migration("20260731212900_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -54,27 +54,6 @@ namespace BudganInfra.Migrations
                     b.HasIndex("ColumnsMappingId");
 
                     b.ToTable("Account");
-                });
-
-            modelBuilder.Entity("BudganInfra.DBContext.Tables.AccountReferenceBalance", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime>("Timestamp")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AccountReferenceBalance");
                 });
 
             modelBuilder.Entity("BudganInfra.DBContext.Tables.ColumnsMapping", b =>
@@ -154,22 +133,6 @@ namespace BudganInfra.Migrations
                         .IsRequired();
 
                     b.Navigation("ColumnsMapping");
-                });
-
-            modelBuilder.Entity("BudganInfra.DBContext.Tables.AccountReferenceBalance", b =>
-                {
-                    b.HasOne("BudganInfra.DBContext.Tables.Account", "Account")
-                        .WithOne("AccountReferenceBalance")
-                        .HasForeignKey("BudganInfra.DBContext.Tables.AccountReferenceBalance", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-                });
-
-            modelBuilder.Entity("BudganInfra.DBContext.Tables.Account", b =>
-                {
-                    b.Navigation("AccountReferenceBalance");
                 });
 #pragma warning restore 612, 618
         }

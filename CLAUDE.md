@@ -55,13 +55,7 @@ One class per operation, not per entity:
 
 - `BaseEntity` — `Id: Guid` (PK) + `Timestamp: DateTime` (optimistic-concurrency token, `GETUTCDATE()` default). All entities except `UserAccount` extend it.
 - `ColumnsMapping` — CSV import column mapping (index + header text per field).
-- `Account` — `Name`, `AccountType`, required FK `ColumnsMapping`; optional (0-or-1) nav to `AccountReferenceBalance`.
-- `AccountReferenceBalance` — `Date`, `Balance`; required FK to exactly 1 `Account`. 1:1 configured explicitly in `DataContext.OnModelCreating`:
-  ```csharp
-  entity.HasOne(arb => arb.Account).WithOne(a => a.AccountReferenceBalance)
-      .HasForeignKey<AccountReferenceBalance>(arb => arb.AccountId);
-  ```
-  DB enforces this with a unique index on `AccountReferenceBalance.AccountId`. `Account` never gets a scalar FK to `AccountReferenceBalance` — don't add one back.
+- `Account` — `Name`, `AccountType`, required FK `ColumnsMapping`.
 - `UserAccount` — doesn't extend `BaseEntity`, no `OnModelCreating` config yet, no repo ops. Treat as unfinished scaffolding.
 
 ### Migrations

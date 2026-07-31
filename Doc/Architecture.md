@@ -53,19 +53,10 @@ This is a **command/operation pattern**, not a generic `IRepository<T>`: there i
 **Entities** (`DBContext/Tables/`), all but `UserAccount` extend `BaseEntity` (`Id: Guid` PK + `Timestamp: DateTime`, used as an optimistic-concurrency token):
 
 - `ColumnsMapping` — describes how CSV/import columns map to fields (index + header text for card number, date, amount, description).
-- `Account` — a budget account (`Name`, `AccountType`, required FK to `ColumnsMapping`), with an optional (0-or-1) navigation to `AccountReferenceBalance`.
-- `AccountReferenceBalance` — a balance snapshot for an account (`Date`, `Balance`), required FK to exactly one `Account`.
+- `Account` — a budget account (`Name`, `AccountType`, required FK to `ColumnsMapping`).
 - `UserAccount` — a lightweight standalone entity (own `Id`/`Key`, no `Timestamp`), not yet configured in `OnModelCreating` and not yet wired into any use case (stub repository only).
 
-**`DataContext`** (`DBContext/DataContext.cs`) exposes `DbSet`s for all four entities. `OnModelCreating` configures `Timestamp` to default to `GETUTCDATE()` for `ColumnsMapping`, `Account`, and `AccountReferenceBalance`, and declares the `Account` \<-\> `AccountReferenceBalance` relationship explicitly as one-to-one:
-
-```csharp
-entity.HasOne(arb => arb.Account)
-    .WithOne(a => a.AccountReferenceBalance)
-    .HasForeignKey<AccountReferenceBalance>(arb => arb.AccountId);
-```
-
-An `Account` may have 0 or 1 `AccountReferenceBalance` (no FK on the principal side); an `AccountReferenceBalance` always belongs to exactly 1 `Account` (non-nullable FK), enforced in the DB by a unique index on `AccountReferenceBalance.AccountId`.
+**`DataContext`** (`DBContext/DataContext.cs`) exposes `DbSet`s for all three entities. `OnModelCreating` configures `Timestamp` to default to `GETUTCDATE()` for `ColumnsMapping` and `Account`.
 
 **Repositories** (`Repositories/`) — per-entity facades (`AccountRepository`, `ColumnsMappingRepository`, `UserAccountRepository`, each `internal` behind a public `I*Repository` interface) that construct per-operation classes:
 - `BaseRepositoryOperation` / `BaseRepositoryOperationWithResultValue<T>` — shared base classes providing `Succeeded`, error state, and `ValidateCanPerformUpdate` (compares the incoming DAO's `Timestamp` against the persisted entity's `Timestamp` to detect concurrent edits, throwing `BudganException` on mismatch or not-found).
@@ -74,7 +65,7 @@ An `Account` may have 0 or 1 `AccountReferenceBalance` (no FK on the principal s
 
 **`ServiceCollectionExtensions.AddInfrastructure(services, configuration)`** registers `DataContext` via `AddDbContext` + `UseSqlServer(configuration.GetConnectionString("DefaultConnection"))` (with `MigrationsAssembly` pinned to `BudganInfra`), and registers `IUserAccountRepository`, `IColumnsMappingRepository`, `IAccountRepository` as `Scoped`.
 
-**Migrations** — a single migration, `InitialCreate` (`BudganInfra/Migrations/`), creating all four tables. It is regenerated in place (rather than accumulating incremental migrations) while the schema is still being actively shaped.
+**Migrations** — a single migration, `InitialCreate` (`BudganInfra/Migrations/`), creating all three tables. It is regenerated in place (rather than accumulating incremental migrations) while the schema is still being actively shaped.
 
 ### BudganServices — use cases
 
@@ -106,6 +97,6 @@ xUnit project targeting `BudganInfra`, using `Microsoft.EntityFrameworkCore.InMe
 ## Known gaps / in-progress areas
 
 - `UserAccount` is defined as an entity and has a repository stub, but has no EF configuration, no repository operations, no use cases, and no controller — it is scaffolding, not a working feature yet.
-- `Account` has a Save repository operation only (no Get/List/Delete) and no use-case or controller layer yet — the one-to-one `AccountReferenceBalance` relationship is modeled at the data layer but not yet exposed through the API.
+- `Account` has a Save repository operation only (no Get/List/Delete) and no use-case or controller layer yet.
 - No authentication, authorization, or CORS configuration.
 - No automated CI pipeline; migrations are currently regenerated in place as a single `InitialCreate` migration rather than accumulated incrementally, which is reasonable pre-release but will need to switch to incremental migrations once any environment beyond local dev holds real data.

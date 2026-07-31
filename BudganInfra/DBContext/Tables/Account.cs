@@ -14,6 +14,4 @@ public class Account : BaseEntity
 
     [MaxLength(50)]
     public required string AccountType { get; set; }
-
-    public AccountReferenceBalance? AccountReferenceBalance { get; set; }
 }

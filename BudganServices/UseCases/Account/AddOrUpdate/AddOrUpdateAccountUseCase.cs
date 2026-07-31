@@ -23,13 +23,6 @@ internal class AddOrUpdateAccountUseCase : BaseUseCaseWithResultValue<Guid>, IAd
             Name = this._boAddOrUpdateModel.Name,
             ColumnsMappingId = this._boAddOrUpdateModel.ColumnsMappingId,
             AccountType = this._boAddOrUpdateModel.AccountType,
-            ReferenceBalance = this._boAddOrUpdateModel.ReferenceBalance == null
-                ? null
-                : new DaoAccountReferenceBalance
-                {
-                    Date = this._boAddOrUpdateModel.ReferenceBalance.Date,
-                    Balance = this._boAddOrUpdateModel.ReferenceBalance.Balance,
-                },
         };
 
         var repoOp = this._accountRepository.SaveAccountRepoOperation(daoSave);

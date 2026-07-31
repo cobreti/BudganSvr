@@ -7,7 +7,6 @@ public class DataContext(DbContextOptions<DataContext> options) : Microsoft.Enti
 {
     public DbSet<ColumnsMapping> ColumnsMappings => Set<ColumnsMapping>();
     public DbSet<Account> Accounts => Set<Account>();
-    public DbSet<AccountReferenceBalance> AccountReferenceBalances => Set<AccountReferenceBalance>();
     public DbSet<UserAccount> UserAccounts => Set<UserAccount>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,16 +23,6 @@ public class DataContext(DbContextOptions<DataContext> options) : Microsoft.Enti
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Timestamp)
                 .HasDefaultValueSql("GETUTCDATE()");
-        });
-
-        modelBuilder.Entity<AccountReferenceBalance>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.Timestamp)
-                .HasDefaultValueSql("GETUTCDATE()");
-            entity.HasOne(arb => arb.Account)
-                .WithOne(a => a.AccountReferenceBalance)
-                .HasForeignKey<AccountReferenceBalance>(arb => arb.Id);
         });
 
         base.OnModelCreating(modelBuilder);

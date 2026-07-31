@@ -7,5 +7,4 @@ public class AddOrUpdateAccount
     public required string Name { get; set; }
     public required Guid ColumnsMappingId { get; set; }
     public required string AccountType { get; set; }
-    public AccountReferenceBalance? ReferenceBalance { get; set; }
 }
