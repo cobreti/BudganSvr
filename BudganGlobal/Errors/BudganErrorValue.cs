@@ -6,6 +6,7 @@ public class BudganErrorValue
 
     public static BudganErrorValue ResourceNotFound = new BudganErrorValue("ResourceNotFound", "Resource not found");
     public static BudganErrorValue Exception = new BudganErrorValue("ExceptionOccurred", "An exception occured : information in logs");
+    public static BudganErrorValue DuplicateAccountTransaction = new BudganErrorValue("DuplicateAccountTransaction", "A transaction with this unique key already exists for this account");
 
     public string ErrorCode { get; }
     public string ErrorMessage { get; }

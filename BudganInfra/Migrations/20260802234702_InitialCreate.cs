@@ -66,20 +66,63 @@ namespace BudganInfra.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AccountTransactions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UniqueKey = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    RecurringId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    FileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CardNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DateInscription = table.Column<DateOnly>(type: "date", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    Balance = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
+                    BalanceDateOffset = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    RecordType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AccountTransactions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AccountTransactions_Account_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Account",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Account_ColumnsMappingId",
                 table: "Account",
                 column: "ColumnsMappingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AccountTransactions_AccountId_UniqueKey",
+                table: "AccountTransactions",
+                columns: new[] { "AccountId", "UniqueKey" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AccountTransactions_FileId",
+                table: "AccountTransactions",
+                column: "FileId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Account");
+                name: "AccountTransactions");
 
             migrationBuilder.DropTable(
                 name: "UserAccounts");
+
+            migrationBuilder.DropTable(
+                name: "Account");
 
             migrationBuilder.DropTable(
                 name: "ColumnsMapping");
