@@ -1,5 +1,5 @@
 namespace BudganInfra.Repositories.AccountTransaction.GetListByAccount;
 
-public interface IListAccountTransactionByAccountRepoOp : IRepositoryOperationWithResultValue<List<DaoListByAccountAccountTransaction>>
+public interface IListAccountTransactionByAccountRepoOp : IRepositoryOperationWithResultValue<List<DaoListAccountTransactionByAccount>>
 {
 }

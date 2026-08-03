@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BudganInfra.Repositories.AccountTransaction.GetListByAccount;
 
 internal class ListAccountTransactionByAccountRepoOp
-    : BaseRepositoryOperationWithResultValue<List<DaoListByAccountAccountTransaction>>, IListAccountTransactionByAccountRepoOp
+    : BaseRepositoryOperationWithResultValue<List<DaoListAccountTransactionByAccount>>, IListAccountTransactionByAccountRepoOp
 {
     private readonly DataContext _dataContext;
     private readonly Guid _accountId;
@@ -19,7 +19,7 @@ internal class ListAccountTransactionByAccountRepoOp
     {
         var result = await this._dataContext.AccountTransactions
             .Where(x => x.AccountId == this._accountId)
-            .Select(x => new DaoListByAccountAccountTransaction
+            .Select(x => new DaoListAccountTransactionByAccount
             {
                 Id = x.Id,
                 AccountId = x.AccountId,

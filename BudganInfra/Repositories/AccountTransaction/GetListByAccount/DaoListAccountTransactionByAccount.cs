@@ -2,7 +2,7 @@ using BudganInfra.DBContext.Tables;
 
 namespace BudganInfra.Repositories.AccountTransaction.GetListByAccount;
 
-public class DaoListByAccountAccountTransaction
+public class DaoListAccountTransactionByAccount
 {
     public required Guid Id { get; set; }
     public required Guid AccountId { get; set; }
