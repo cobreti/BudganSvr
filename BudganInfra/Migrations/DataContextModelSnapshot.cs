@@ -53,6 +53,56 @@ namespace BudganInfra.Migrations
                     b.ToTable("Account");
                 });
 
+            modelBuilder.Entity("BudganInfra.DBContext.Tables.AccountRecurringTransaction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("AverageAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateOnly>("FirstOccurrenceDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("LastOccurrenceDate")
+                        .HasColumnType("date");
+
+                    b.Property<double>("PeriodInDays")
+                        .HasColumnType("float");
+
+                    b.Property<string>("RecurringId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<int>("TransactionCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("RecurringId")
+                        .IsUnique();
+
+                    b.ToTable("AccountRecurringTransactions");
+                });
+
             modelBuilder.Entity("BudganInfra.DBContext.Tables.AccountTransaction", b =>
                 {
                     b.Property<Guid>("Id")
@@ -196,6 +246,17 @@ namespace BudganInfra.Migrations
                         .IsRequired();
 
                     b.Navigation("ColumnsMapping");
+                });
+
+            modelBuilder.Entity("BudganInfra.DBContext.Tables.AccountRecurringTransaction", b =>
+                {
+                    b.HasOne("BudganInfra.DBContext.Tables.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("BudganInfra.DBContext.Tables.AccountTransaction", b =>

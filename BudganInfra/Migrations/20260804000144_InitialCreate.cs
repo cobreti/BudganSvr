@@ -67,6 +67,32 @@ namespace BudganInfra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AccountRecurringTransactions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RecurringId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PeriodInDays = table.Column<double>(type: "float", nullable: false),
+                    TransactionCount = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    AverageAmount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    FirstOccurrenceDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    LastOccurrenceDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AccountRecurringTransactions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AccountRecurringTransactions_Account_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Account",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AccountTransactions",
                 columns: table => new
                 {
@@ -101,6 +127,17 @@ namespace BudganInfra.Migrations
                 column: "ColumnsMappingId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AccountRecurringTransactions_AccountId",
+                table: "AccountRecurringTransactions",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AccountRecurringTransactions_RecurringId",
+                table: "AccountRecurringTransactions",
+                column: "RecurringId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AccountTransactions_AccountId_UniqueKey",
                 table: "AccountTransactions",
                 columns: new[] { "AccountId", "UniqueKey" },
@@ -115,6 +152,9 @@ namespace BudganInfra.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AccountRecurringTransactions");
+
             migrationBuilder.DropTable(
                 name: "AccountTransactions");
 

@@ -8,6 +8,7 @@ public class DataContext(DbContextOptions<DataContext> options) : Microsoft.Enti
     public DbSet<ColumnsMapping> ColumnsMappings => Set<ColumnsMapping>();
     public DbSet<Account> Accounts => Set<Account>();
     public DbSet<AccountTransaction> AccountTransactions => Set<AccountTransaction>();
+    public DbSet<AccountRecurringTransaction> AccountRecurringTransactions => Set<AccountRecurringTransaction>();
     public DbSet<UserAccount> UserAccounts => Set<UserAccount>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,6 +45,21 @@ public class DataContext(DbContextOptions<DataContext> options) : Microsoft.Enti
             entity.HasIndex(e => e.FileId);
 
             entity.HasIndex(e => new { e.AccountId, e.UniqueKey })
+                .IsUnique();
+        });
+
+        modelBuilder.Entity<AccountRecurringTransaction>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Timestamp)
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            entity.Property(e => e.AverageAmount)
+                .HasPrecision(18, 2);
+
+            entity.HasIndex(e => e.AccountId);
+
+            entity.HasIndex(e => e.RecurringId)
                 .IsUnique();
         });
 

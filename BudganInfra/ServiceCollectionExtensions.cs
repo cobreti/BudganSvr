@@ -1,5 +1,6 @@
 using BudganInfra.DBContext;
 using BudganInfra.Repositories.Account;
+using BudganInfra.Repositories.AccountRecurringTransaction;
 using BudganInfra.Repositories.AccountTransaction;
 using BudganInfra.Repositories.ColumnsMapping;
 using BudganInfra.Repositories.UserAccount;
@@ -22,6 +23,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IColumnsMappingRepository, ColumnsMappingRepository>();
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IAccountTransactionRepository, AccountTransactionRepository>();
+        services.AddScoped<IAccountRecurringTransactionRepository, AccountRecurringTransactionRepository>();
 
         return services;
     }

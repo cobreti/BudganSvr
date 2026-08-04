@@ -1,0 +1,18 @@
+using BudganInfra.Repositories.AccountRecurringTransaction.DeleteByAccount;
+using BudganInfra.Repositories.AccountRecurringTransaction.GetList;
+using BudganInfra.Repositories.AccountRecurringTransaction.GetListByAccount;
+using BudganInfra.Repositories.AccountRecurringTransaction.Insert;
+
+namespace BudganInfra.Repositories.AccountRecurringTransaction;
+
+public interface IAccountRecurringTransactionRepository
+{
+    IInsertAccountRecurringTransactionRepoOp InsertAccountRecurringTransactionRepoOperation(
+        List<DaoInsertAccountRecurringTransaction> items);
+
+    IListAccountRecurringTransactionRepoOp ListAccountRecurringTransactionRepoOperation();
+
+    IListAccountRecurringTransactionByAccountRepoOp ListAccountRecurringTransactionByAccountRepoOperation(Guid accountId);
+
+    IDeleteAccountRecurringTransactionByAccountRepoOp DeleteAccountRecurringTransactionByAccountRepoOperation(Guid accountId);
+}
