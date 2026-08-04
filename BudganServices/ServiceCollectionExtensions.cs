@@ -1,4 +1,5 @@
 using BudganServices.UseCases.Account;
+using BudganServices.UseCases.AccountRecurringTransaction;
 using BudganServices.UseCases.AccountTransaction;
 using BudganServices.UseCases.ColumnsMapping;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IColumnsMappingUseCaseFactory, ColumnsMappingUseCaseFactory>();
         services.AddScoped<IAccountUseCaseFactory, AccountUseCaseFactory>();
         services.AddScoped<IAccountTransactionUseCaseFactory, AccountTransactionUseCaseFactory>();
+        services.AddScoped<IAccountRecurringTransactionUseCaseFactory, AccountRecurringTransactionUseCaseFactory>();
 
         return services;
     }
